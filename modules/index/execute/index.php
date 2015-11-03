@@ -29,6 +29,9 @@ class index{
 		Template::display("footer");
 
 	}
+	public function action_showBoard($letter){
+		
+	}
 	
 	public function action_hyj(){
 		echo "hyj";
