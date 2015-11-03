@@ -101,6 +101,7 @@ class Router {
 				else{
 					self::$action = "showBoard";
 				}
+				
 				define('ROUTE_CONTROLLER_PATH', ROOT . 'modules/index/execute/index.php');
 				define('ROUTE_CONTROLLER_NAME', 'index');
 				define('ROUTE_CONTROLLER_URL', self::$segment1);

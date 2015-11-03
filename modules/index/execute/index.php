@@ -64,7 +64,7 @@ class index{
 		echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
 		echo "Tn: " . $_POST["topic_name"] . '<br/>';
 		echo "Tt: " . $_POST["topic_text"] . '<br/>';
-		echo "Tb: " . $_POST["board"] . '<br/>';
+		echo "Tb: " . $_POST["board"] . '<br/> ';
 
 	}
 }
