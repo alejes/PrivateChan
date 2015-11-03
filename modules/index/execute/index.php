@@ -59,7 +59,12 @@ class index{
         Template::display("board");
 	}
 	
-	public function action_create_thread(){
-		echo "create_thread form";
+	public function action_createThread(){
+		echo "create_thread form" . '<br/>';
+		echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
+		echo "Tn: " . $_POST["topic_name"] . '<br/>';
+		echo "Tt: " . $_POST["topic_text"] . '<br/>';
+		echo "Tb: " . $_POST["board"] . '<br/>';
+
 	}
 }
