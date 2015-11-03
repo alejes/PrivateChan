@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS threads_messages;
 CREATE TABLE IF NOT EXISTS boards (
   board_id int(11) PRIMARY KEY AUTO_INCREMENT,
   board_letter CHAR(5) NOT NULL UNIQUE,
-  board_name TEXT NOT NULL UNIQUE,
+  board_name TEXT NOT NULL,
   board_info TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS boards (
 CREATE TABLE IF NOT EXISTS threads (
     thread_id int(11) PRIMARY KEY AUTO_INCREMENT,
     thread_name CHAR(255) UNIQUE NOT NULL,
-    board_id int(11) REFERENCES boards(board_id),
+    board_id int(11) REFERENCES boards(board_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS threads (
 
 CREATE TABLE IF NOT EXISTS messages (
     message_id int(11) PRIMARY KEY AUTO_INCREMENT,
-    author CHAR(30) DEFAULT('Anonymous'),
+    author CHAR(30) DEFAULT 'Anonymous' ,
 	body TEXT NOT NULL,
     thread_id int(11) REFERENCES threads(thread_id),
     ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
