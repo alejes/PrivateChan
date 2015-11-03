@@ -18,7 +18,6 @@ $controller = new $class();
 if ( ! empty(Router::$action)) {
 
     $action_method = 'action_'. Router::$action;
-    
     if (method_exists($controller, $action_method)) {
         $controller->$action_method();
     }

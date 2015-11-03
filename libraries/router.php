@@ -6,7 +6,7 @@ class Router {
 	public static $segment2;
 	public static $segment3;
 	
-	public static $controller_exists = false;
+	public static $controller_exists = true;
 	public static $controller_path;
 	public static $controller_name;
 	public static $action;
@@ -86,8 +86,24 @@ class Router {
 			}
 			else throw new Exception('00404');
 		}
-		define('ROUTE_MODULE', self::$module);
-		define('ROUTE_CONTROLLER_PATH', self::$controller_path);
+		if(self::$controller_exists) {
+				define('ROUTE_CONTROLLER_PATH', self::$controller_path);
+				define('ROUTE_CONTROLLER_NAME', self::$controller_name);
+				define('ROUTE_CONTROLLER_URL', self::$module . ((self::$action) ? '/'. self::$action :  '') . ((self::$page) ? '/'. self::$page :  ''));
+				define('ROUTE_ACTION', self::$action);
+				define('ROUTE_PAGE', self::$page);
+				define('ROUTE_MODULE', self::$module);
+			}
+			elseif (!empty(self::$segment1)) {
+				self::$action = "showBoard";
+				define('ROUTE_CONTROLLER_PATH', ROOT . 'modules/index/execute/index.php');
+				define('ROUTE_CONTROLLER_NAME', 'index');
+				define('ROUTE_CONTROLLER_URL', self::$segment1);
+				define('ROUTE_ACTION', self::$action);
+				define('ROUTE_PAGE', self::$segment3);
+				define('ROUTE_MODULE', 'index');
+				define('ROUTE_LOGIN', self::$segment1);
+			}else	throw new Exception('00404');//;
 	}
 	/**
 	* Проверка правильности сегментов

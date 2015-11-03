@@ -29,8 +29,16 @@ class index{
 		Template::display("footer");
 
 	}
-	public function action_showBoard($letter){
-		
+	public function action_showBoard($letter = ""){
+		if (empty($letter)){
+			if (defined('ROUTE_CONTROLLER_URL')){
+				$letter = ROUTE_CONTROLLER_URL;
+			}
+			else{
+				$letter = 'a';
+			}
+		}
+		echo "Board:" . $letter ;
 	}
 	
 	public function action_hyj(){
