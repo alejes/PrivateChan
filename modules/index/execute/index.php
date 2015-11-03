@@ -40,20 +40,28 @@ class index{
 		}
 
         $board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
-        while($fetch = mysql_fetch_assoc($board_info_query)){
+        while($fetch = @mysql_fetch_assoc($board_info_query)){
             $board_info = $fetch;
         }
         $board_info["name"] = $board_info["board_name"];
-        echo $board_info["name"];
 
         $threads_query = mysql_query("SELECT * FROM `boards` AS b 
 											JOIN threads as t on b.board_id = t.board_id");
 
+        $threads = array();
         $threads_data = array();
         while($fetch = @mysql_fetch_assoc($threads_query)){
-            $threads_data[] = $fetch;
+            $threads[] = $fetch;
+            $message_query = mysql_query("select message_id, author, body, ts from `messages` as m join threads as t on t.thread_id = m.thread_id");
+            while($fetch_msg = @mysql_fetch_assoc($message_query))
+            {
+                $fetch_msg["create_date"] = $fetch_msg["ts"];
+                $fetch_msg["name"] = $fetch_msg["author"];
+                $fetch_msg["text"] = $fetch_msg["body"];
+                $fetch_msg["id"] = $fetch_msg["message_id"];
+                $threads_data[] = $fetch_msg;
+            }
         }
-
         Template::display("header");
         Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("board");
@@ -65,6 +73,8 @@ class index{
 		echo "Tn: " . $_POST["topic_name"] . '<br/>';
 		echo "Tt: " . $_POST["topic_text"] . '<br/>';
 		echo "Tb: " . $_POST["board"] . '<br/> ';
+        #INSERT INTO `messages` (`message_id`, `author_name`, `body`, `thread_id`) VALUES (NULL, 'anon', 'Текст сообщения', '0');
+        #INSERT INTO `threads` (`thread_id`, `thread_name`, `board_id`, `first_message_id`) VALUES ('', 'Gurenn Lagann', '1', '0');
 
 	}
 }
