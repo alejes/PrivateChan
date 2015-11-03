@@ -19,29 +19,39 @@ SET time_zone = "+00:00";
 --
 -- База данных: `auchan`
 --
+-- USE auchan_db;
 
 -- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `boards` (
-  `board_id` int(11) PRIMARY KEY,
-  `board_letter` CHAR NOT NULL,
-  `board_name` TEXT NOT NULL,
-  `board_info` TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS boards (
+  board_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  board_letter INT(5) NOT NULL,
+  board_name TEXT NOT NULL,
+  board_info TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS `messages` (
-    `message_id` int(11) PRIMARY KEY,
-	`body` TEXT NOT NULL,
-    `thread_id` int(11) REFERENCES `threads`(thread_id)
+CREATE TABLE IF NOT EXISTS messages (
+    message_id int(11) PRIMARY KEY AUTO_INCREMENT,
+    author_name VARCHAR(30),
+	body TEXT NOT NULL,
+    thread_id int(11) REFERENCES threads(thread_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS `threads` (
-    `thread_id` int(11) PRIMARY KEY,
-    `board_id` int(11) REFERENCES `boards`(board_id),
-    `first_message_id` int(11) REFERENCES `messages`(message_id)
+CREATE TABLE IF NOT EXISTS threads (
+    thread_id int(11) PRIMARY KEY,
+    thread_name VARCHAR(256) UNIQUE,
+    board_id int(11) REFERENCES boards(board_id),
+    first_message_id int(11) REFERENCES messages(message_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS messages_parents (
+    parent_id int(11) REFERENCES messages(message_id),
+    child_id int(11) REFERENCES messages(message_id),
+    UNIQUE (parent_id, child_id)
+);
 
 
 -- TODO: Создать View с некоторым количеством бордом, итератором по ним
