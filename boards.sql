@@ -22,26 +22,33 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Структура таблицы `boards`
---
-
 CREATE TABLE IF NOT EXISTS `boards` (
-  `board_id` int(11) NOT NULL,
-  `board_letter` varchar(5) NOT NULL,
-  `board_name` varchar(100) NOT NULL,
-  `board_info` text NOT NULL
+  `board_id` int(11) PRIMARY KEY,
+  `board_letter` CHAR NOT NULL,
+  `board_name` TEXT NOT NULL,
+  `board_info` TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `messages` (
+    `message_id` int(11) PRIMARY KEY,
+	`body` TEXT NOT NULL,
+    `thread_id` int(11) REFERENCES `threads`(thread_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `threads` (
+    `thread_id` int(11) PRIMARY KEY,
+    `board_id` int(11) REFERENCES `boards`(board_id),
+    `first_message_id` int(11) REFERENCES `messages`(message_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- TODO: Создать View с некоторым количеством бордом, итератором по ним
 
 --
 -- Индексы сохранённых таблиц
 --
-
---
--- Индексы таблицы `boards`
---
-ALTER TABLE `boards`
-  ADD PRIMARY KEY (`board_id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -55,3 +62,4 @@ ALTER TABLE `boards`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
