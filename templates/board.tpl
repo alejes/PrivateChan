@@ -11,11 +11,17 @@
 
 <?php for ($i = 0; $i < count($threads_data); $i++): ?>
     <div class="post">
-        <div class="id"> <?php echo $threads_data[$i]["id"] ?> </div>
-        <div class="time"> <?php echo $threads_data[$i]["create_date"] ?> </div>
-        <div class="answer"> <a> Ответ </a> </div>
-        <div class="author"> <?php echo $threads_data[$i]["author"] ?> </div>
-        <div class="text"> <?php echo $threads_data[$i]["text"] ?> </div>
-        <div class="ids"> <?php echo $threads_data[$i]["ids"] ?> </div>
+        <div class="header">
+            <div class="item"><strong>Вопрос-ответ тред</strong></div>
+            <div class="item"><?php echo $threads_data[$i]["author"] ?></div>
+            <div class="item"> <?php echo $threads_data[$i]["create_date"] ?> </div>
+            <div class="item"> №<?php echo $threads_data[$i]["id"] ?> </div>
+            <div class="item"> [<a> Ответ </a>] </div>
+        </div>
+
+        <div class="text">
+            <?php echo $threads_data[$i]["text"] ?>
+        </div>
+        <div class="ids"> <a> <?php echo $threads_data[$i]["ids"] ?> </a> </div>
     </div>
 <?php endfor; ?>
