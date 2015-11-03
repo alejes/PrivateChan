@@ -1,7 +1,10 @@
 
-<table class="table table-bordered">
+<table class="table table-striped">
     <thead>
-        <td>Доска</td> <td>Название</td> <td>Описание</td> <td>Постов</td>
+        <td> <strong>Доска</strong> </td>
+        <td> <strong>Название</strong> </td>
+        <td> <strong>Описание</strong> </td>
+        <td> <strong>Постов</strong> </td>
     </thead>
     <tbody>
         <?php for ($i = 0; $i < count($boards_data); $i++): ?>

@@ -13,6 +13,7 @@
 <title>AUChan</title>
 
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/board.css" rel="stylesheet">
 
 </head>
 
