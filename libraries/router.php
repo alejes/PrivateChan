@@ -84,6 +84,7 @@ class Router {
 				}
 				else self::$controller_exists = FALSE;
 			}
+			else throw new Exception('00404');
 		}
 		define('ROUTE_MODULE', self::$module);
 		define('ROUTE_CONTROLLER_PATH', self::$controller_path);

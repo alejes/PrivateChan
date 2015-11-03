@@ -6,7 +6,10 @@ require "libraries/template.php";
 Router::route();
 
 
-require(ROUTE_CONTROLLER_PATH);
+if (file_exists(ROUTE_CONTROLLER_PATH)){
+	require(ROUTE_CONTROLLER_PATH);
+}
+else throw new Exception('00404');
 
 $class = ROUTE_MODULE;
 $controller = new $class();

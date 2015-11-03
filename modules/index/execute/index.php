@@ -27,10 +27,6 @@ class index{
 		Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
 		Template::display("board");
 		Template::display("footer");
-		//include 'templates/header.tpl';
-		//include 'templates/board_list.tpl';
-		//include 'templates/board.tpl';
-		//include 'templates/footer.tpl';
 
 	}
 	
