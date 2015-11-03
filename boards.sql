@@ -19,13 +19,18 @@ SET time_zone = "+00:00";
 --
 -- База данных: `auchan`
 --
--- USE auchan_db;
+
+-- USE auch_db;
 
 -- --------------------------------------------------------
+DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS parent;
+DROP TABLE IF EXISTS messages_parents;
 
 CREATE TABLE IF NOT EXISTS boards (
   board_id int(11) PRIMARY KEY AUTO_INCREMENT,
-  board_letter INT(5) NOT NULL,
+  board_letter CHAR(5) NOT NULL,
   board_name TEXT NOT NULL,
   board_info TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -33,7 +38,7 @@ CREATE TABLE IF NOT EXISTS boards (
 
 CREATE TABLE IF NOT EXISTS messages (
     message_id int(11) PRIMARY KEY AUTO_INCREMENT,
-    author_name VARCHAR(30),
+    author_name CHAR(30),
 	body TEXT NOT NULL,
     thread_id int(11) REFERENCES threads(thread_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -41,7 +46,7 @@ CREATE TABLE IF NOT EXISTS messages (
 
 CREATE TABLE IF NOT EXISTS threads (
     thread_id int(11) PRIMARY KEY,
-    thread_name VARCHAR(256) UNIQUE,
+    thread_name CHAR(255) UNIQUE,
     board_id int(11) REFERENCES boards(board_id),
     first_message_id int(11) REFERENCES messages(message_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
