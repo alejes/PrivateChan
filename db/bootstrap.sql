@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.4.12
--- http://www.phpmyadmin.net
---
--- Хост: 127.0.0.1
--- Время создания: Ноя 03 2015 г., 13:03
--- Версия сервера: 5.6.25
--- Версия PHP: 5.6.11
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -24,9 +15,10 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS threads;
 DROP TABLE IF EXISTS messages;
-DROP TABLE IF EXISTS parent;
 DROP TABLE IF EXISTS messages_parents;
+
 
 CREATE TABLE IF NOT EXISTS boards (
   board_id int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -36,19 +28,20 @@ CREATE TABLE IF NOT EXISTS boards (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS messages (
-    message_id int(11) PRIMARY KEY AUTO_INCREMENT,
-    author_name CHAR(30),
-	body TEXT NOT NULL,
-    thread_id int(11) REFERENCES threads(thread_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 CREATE TABLE IF NOT EXISTS threads (
-    thread_id int(11) PRIMARY KEY,
+    thread_id int(11) PRIMARY KEY AUTO_INCREMENT,
     thread_name CHAR(255) UNIQUE,
     board_id int(11) REFERENCES boards(board_id),
     first_message_id int(11) REFERENCES messages(message_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS messages (
+    message_id int(11) PRIMARY KEY AUTO_INCREMENT,
+    author CHAR(30),
+	body TEXT NOT NULL,
+    thread_id int(11) REFERENCES threads(thread_id),
+    ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -57,6 +50,9 @@ CREATE TABLE IF NOT EXISTS messages_parents (
     child_id int(11) REFERENCES messages(message_id),
     UNIQUE (parent_id, child_id)
 );
+
+
+-- source procedures.sql
 
 
 -- TODO: Создать View с некоторым количеством бордом, итератором по ним
