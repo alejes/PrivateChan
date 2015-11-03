@@ -1,6 +1,7 @@
 <?php
 require "config.php";
 require "libraries/router.php";
+require "libraries/template.php";
 
 Router::route();
 

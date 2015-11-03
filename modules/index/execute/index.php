@@ -19,11 +19,18 @@ class index{
 		$board_info = array();
 		$board_info["name"] = "Current board name";
 		$threads_data  = array();
-
-		include 'templates/header.tpl';
-		include 'templates/board_list.tpl';
-		include 'templates/board.tpl';
-		include 'templates/footer.tpl';
+		
+		
+		Template::display("header");
+		Template::assign(array('boards_data' => $boards_data));
+		Template::display("board_list");
+		Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
+		Template::display("board");
+		Template::display("footer");
+		//include 'templates/header.tpl';
+		//include 'templates/board_list.tpl';
+		//include 'templates/board.tpl';
+		//include 'templates/footer.tpl';
 
 	}
 	
