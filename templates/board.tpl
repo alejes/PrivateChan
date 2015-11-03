@@ -4,8 +4,8 @@
 <div class="create_thread_btn"> <a>Создать пост</a> </div>
 
 <form action="/create_thread" id="form_thread_create" class="create_thread">
-    Тема <br> <input type="text" name="topic_name">
-    Текст <br> <textarea name="topic_text" rows="20" cols="50"> </textarea>
+    Тема <br> <input type="text" name="topic_name"> <br>
+    Текст <br> <textarea name="topic_text" rows="20" cols="50"> </textarea> <br>
     <input type="submit" value="Отправить">
 </form>
 
