@@ -3,10 +3,10 @@
 <div class="board_title"> <?php echo $board_info["name"] ?> </div>
 <div class="create_thread_btn"> <a>Создать тред</a> </div>
 
-<form type="post" action="/create_thread" id="form_thread_create" class="create_thread">
+<form action="/<?php echo $board_info["board_letter"] ?>/createThread" id="form_thread_create" method="POST"  class="create_thread">
     Тема <br> <input type="text" name="topic_name"> <br>
     Текст <br> <textarea name="topic_text" rows="10" cols="50"> </textarea> <br>
-    <input type="hidden" name="board" value="<?php echo $board_info["name"] ?>">
+    <input type="hidden" name="board" value="<?php echo $board_info["board_letter"] ?>">
     <input type="submit" value="Отправить">
 </form>
 
