@@ -38,7 +38,27 @@ class index{
 				$letter = 'a';
 			}
 		}
-		echo "Board:" . $letter ;
+
+        $mysqli = mysqli_connect("localhost", "root", "", "auchan_db");
+
+
+        $board_info_query = mysqli_query($mysqli, "SELECT * FROM `boards` where board_letter = \"".$letter."\";");
+        while($fetch = $board_info_query->fetch_assoc()){
+            $board_info = $fetch;
+        }
+        $board_info["name"] = $board_info["board_name"];
+        echo $board_info["name"];
+
+        $threads_query = mysqli_query($mysqli, "SELECT * FROM `boards` as b JOIN threads as t on b.board_id = t.board_id");
+
+        $threads_data = array();
+        while($fetch = $threads_query->fetch_assoc()){
+            $threads_data[] = $fetch;
+        }
+
+        Template::display("header");
+        Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
+        Template::display("board");
 	}
 	
 	public function action_hyj(){
