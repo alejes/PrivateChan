@@ -61,7 +61,7 @@ class index{
         Template::display("board");
 	}
 	
-	public function action_hyj(){
-		echo "hyj";
+	public function action_create_thread(){
+		echo "create_thread form";
 	}
 }
