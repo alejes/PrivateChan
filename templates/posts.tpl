@@ -12,7 +12,7 @@
 <?php for ($i = 0; $i < count($posts_data); $i++): ?>
 <div class="post">
     <div class="header">
-        <div class="item"> <strong><?php echo $posts_data[$i]["name"]</strong> </div>
+        <div class="item"> <strong><?php echo $posts_data[$i]["name"] ?> </strong> </div>
         <div class="item"> <?php echo $posts_data[$i]["author"] ?> </div>
         <div class="item"> <?php echo $posts_data[$i]["create_date"] ?> </div>
         <div class="item"> №<?php echo $posts_data[$i]["id"] ?> </div>
