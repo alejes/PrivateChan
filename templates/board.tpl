@@ -12,15 +12,13 @@
         <tr>Доска</tr> <tr>Название</tr> <tr>Описание</tr> <tr>Постов</tr>
     </thead>
     <tbody>
-        <?php 
-            for ($i = 1; $i <= 10; $i++) {
-                echo "<th>";
-                echo "<tr>" . $items["short_name"] . "</tr>";
-                echo "<tr>" . $items["name"] . " </tr>";
-                echo "<tr>" . $items["descriptions"] . " </tr>";
-                echo "<tr>" . $items["post_counts"] . " </tr>";
-                echo "</th>";
-            }
-        ?>
+        <?php for ($i = 1; $i <= 10; $i++): ?>
+                <th>
+                <tr> <?php echo $items["short_name"]; ?></tr>
+                <tr> <?php echo $items["name"]; ?> </tr>
+                <tr> <?php echo $items["descriptions"]; ?></tr>
+                <tr> <?php echo $items["post_counts"]; ?></tr>
+                </th>
+        <?php endfor; ?>
     </tbody>
 </table>
