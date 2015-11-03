@@ -1,30 +1,36 @@
 <?php
 require "config.php";
+require "libraries/router.php";
+require "libraries/template.php";
+
+Router::route();
 
 
-echo 'Supper pupper bashes';
-
-$q = mysql_query("SELECT * FROM `boards`");
-
-$boards_data = array();
-while($fetch = mysql_fetch_array($q)){
-	$fetch["board_count"] = 123;
-	$boards_data[] = $fetch;
+if (file_exists(ROUTE_CONTROLLER_PATH)){
+	require(ROUTE_CONTROLLER_PATH);
 }
-$boards_info = array();
-$boards_info_query = mysql_query("SELECT board_letter FROM `boards`");
+else throw new Exception('00404');
 
-while($fetch = mysql_fetch_array($boards_info_query)){
-    $boards_info[] = $fetch;
+$class = ROUTE_MODULE;
+$controller = new $class();
+
+
+if ( ! empty(Router::$action)) {
+
+    $action_method = 'action_'. Router::$action;
+    if (method_exists($controller, $action_method)) {
+        $controller->$action_method();
+    }
+    else  throw new Exception('00404');
 }
-$board_info = array();
-$board_info["name"] = "Current board name";
-$threads_data  = array();
+else {
+	if (method_exists($controller, 'action_default')) {
+        $controller->action_default();
+    }else  	throw new Exception('00404');
+}
 
-include 'templates/header.tpl';
-include 'templates/board_list.tpl';
-include 'templates/board.tpl';
-include 'templates/footer.tpl';
+//echo 'Supper pupper bashes';
+
 
 
 ?>
