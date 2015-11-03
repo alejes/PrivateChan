@@ -25,7 +25,7 @@ class index{
 		Template::assign(array('boards_data' => $boards_data));
 		Template::display("board_list");
 		Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
-		Template::display("board");
+		//Template::display("board");
 		Template::display("footer");
 
 	}
@@ -59,7 +59,12 @@ class index{
         Template::display("board");
 	}
 	
-	public function action_create_thread(){
-		echo "create_thread form";
+	public function action_createThread(){
+		echo "create_thread form" . '<br/>';
+		echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
+		echo "Tn: " . $_POST["topic_name"] . '<br/>';
+		echo "Tt: " . $_POST["topic_text"] . '<br/>';
+		echo "Tb: " . $_POST["board"] . '<br/> ';
+
 	}
 }
