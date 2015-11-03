@@ -16,6 +16,5 @@
                 <tr> <?php echo $boards_data[$i]["post_counts"]; ?></tr>
             </th>
         <?php endfor; ?>
-
     </tbody>
 </table>
