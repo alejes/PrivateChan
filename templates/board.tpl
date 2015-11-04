@@ -42,7 +42,7 @@
             <div class="item"> <?php echo $threads_data[$i]["author"] ?> </div>
             <div class="item"> <?php echo $threads_data[$i]["create_date"] ?> </div>
             <div class="item"> №<?php echo $threads_data[$i]["id"] ?> </div>
-            <div class="item"> Ответов <?php echo $threads_data[$i]["answers"] ?> Нажмите <a href="/<?php echo $board_info["board_letter"] ?>/<?php echo $threads_data[$i]["id"] ?>">
+            <div class="item"> Ответов <strong><?php echo $threads_data[$i]["answers"] ?></strong> Нажмите <a href="/<?php echo $board_info["board_letter"] ?>/<?php echo $threads_data[$i]["id"] ?>">
                 <strong>ответ</strong> </a>, чтобы посмотреть. </div>
         </div>
 
