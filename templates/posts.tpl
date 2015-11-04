@@ -1,13 +1,35 @@
 <!-- $board_info $boards_data -->
 
-<div class="board_title"> <?php echo $board_info["name"] ?> </div>
 
-<form type="post" action="/create_post" id="form_thread_create" class="create_thread">
-    <textarea name="topic_text" rows="10" cols="50"> </textarea> <br>
-    <input type="hidden" name="board" text="<?php echo $board_info["name"] ?>">
-    <input id="answer_token" type="hidden" name="parrent_token" value="">
-    <input type="submit" value="Ответить">
-</form>
+<h1 class="text-center"> <?php echo $board_info["name"] ?> </h1>
+
+<div id="form_post_create">
+    <h3 class="text-center">
+        [ <a onclick="hide('form_post_create')">Не создавать</a> ]
+    </h3>
+
+    <div class="row">
+        <div class="col-xs-6 col-md-4"></div>
+        <div class="col-xs-6 col-md-4">
+            <form type="post" action="/create_post" id="" class="form-horizontal">
+                <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
+                <input type="hidden" name="board" text="<?php echo $board_info["name"] ?>">
+                <input id="answer_token" type="hidden" name="parrent_token" value="">
+                <input class="btn btn-default" type="submit" value="Ответить">
+            </form>
+        </div>
+        <div class="col-xs-6 col-md-4"></div>
+    </div>
+</div>
+
+<script>
+    hide("form_post_create");
+
+    function answer(id) {
+        document.getElementById("answer_token").value = id;
+        show("form_post_create");
+    }
+</script>
 
 <?php for ($i = 0; $i < count($posts_data); $i++): ?>
 <div class="post">
@@ -16,7 +38,7 @@
         <div class="item"> <?php echo $posts_data[$i]["author"] ?> </div>
         <div class="item"> <?php echo $posts_data[$i]["create_date"] ?> </div>
         <div class="item"> №<?php echo $posts_data[$i]["id"] ?> </div>
-        <div class="item"> [<a> Ответ </a>] </div>
+        <div class="item"> [<a onclick="answer('<?php echo $posts_data[$i]["id"] ?>')"> Ответ </a>] </div>
     </div>
 
     <div class="text">

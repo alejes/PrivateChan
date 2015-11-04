@@ -11,7 +11,7 @@
 <meta name="author" content="">
 
 <title>AUChan</title>
-
+<script type="text/javascript" src="/js/ui.js"></script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 
