@@ -13,6 +13,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     <script type="text/javascript" src="../js/fancybox.js"></script>
     <script type="text/javascript" src="../js/ui.js"></script>
+    <script type="text/javascript" src="../js/ckeditor/ckeditor.js"></script>
 
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -32,8 +33,8 @@
             [ <a onclick="show_hide('create_thread', 'form_thread_create')">Не создавать</a> ]
         </h3>
         <div class="row">
-            <div class="col-xs-6 col-md-4"></div>
-            <div class="col-xs-6 col-md-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <form class="form-horizontal" method="POST"  class="create_thread">
                     <label>Тема</label> <br> <input class="form-control"  type="text" name="topic_name"> <br>
                     Текст <br> <textarea class="form-control" name="topic_text" rows="10"></textarea> <br>
@@ -43,12 +44,14 @@
                     <input type="submit" class="btn btn-default" value="Отправить">
                 </form>
             </div>
-            <div class="col-xs-6 col-md-4"></div>
+            <div class="col-md-2"></div>
+            </div>
         </div>
     </div>
 
     <script>
         hide("form_thread_create");
+        CKEDITOR.replace('topic_text');
     </script>
 
     <h1 class="text-center"> Прилежности дизайна пост </h1>

@@ -10,8 +10,8 @@
         [ <a onclick="show_hide('create_thread', 'form_thread_create')">Не создавать</a> ]
     </h3>
     <div class="row">
-        <div class="col-xs-6 col-md-4"></div>
-        <div class="col-xs-6 col-md-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <form enctype="multipart/form-data" action="/<?php echo $board_info["board_letter"] ?>/createThread" method="POST" class="form-horizontal">
                 <label>Тема</label> <br> <input class="form-control" type="text" name="topic_name"> <br>
                 <label>Автор</label> <br> <input class="form-control" type="text" name="topic_author" value="Анон"> <br>
@@ -22,12 +22,13 @@
                 <input type="submit" class="btn btn-default" value="Отправить">
             </form>
         </div>
-        <div class="col-xs-6 col-md-4"></div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 
 <script>
     hide("form_thread_create");
+    CKEDITOR.replace("topic_text");
 
     $(document).ready(function() {
         $("a.single_image").fancybox();
