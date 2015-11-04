@@ -59,7 +59,11 @@
     <div class="text">
         <?php echo $posts_data[$i]["text"] ?>
     </div>
-    <div class="ids"> <a> <?php echo $posts_data[$i]["ids"] ?> </a> </div>
+    <div class="ids">
+        <?php for ($i = 0; $i < count($posts_data[$i]["ids"]); $i++): ?>
+            [<a href="#<?php echo $posts_data[$i]["ids"][$i] ?>"><?php echo $posts_data[$i]["ids"][$i] ?></a>]
+        <?php endif; ?>
+    </div>
 </div>
 
 <?php endfor; ?>
