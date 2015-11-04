@@ -10,42 +10,23 @@
 
     <title>AUChan</title>
 
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/fancybox.js"></script>
     <script type="text/javascript" src="../js/ui.js"></script>
+
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/board.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen" />
+
 </head>
 <body>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#imgModal">
-        Launch demo modal
-    </button>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <h1 class="text-center">Привет двач</h1>
     <h3 id="create_thread" class="text-center">
         [ <a onclick="show_hide('form_thread_create', 'create_thread')">Создать тред</a> ]
     </h3>
 
-    <div id="form_thread_create">
+        <div id="form_thread_create">
 
         <h3 id="create_thread_cancel" class="text-center">
             [ <a onclick="show_hide('create_thread', 'form_thread_create')">Не создавать</a> ]
@@ -69,8 +50,6 @@
     <script>
         hide("form_thread_create");
     </script>
-
-
 
     <h1 class="text-center"> Прилежности дизайна пост </h1>
 
@@ -96,6 +75,12 @@
 
     <div class="container">
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("a.single_image").fancybox();
+            });
+        </script>
+
         <div class="post">
             <div class="header">
                 <div class="item"><strong>Вопрос-ответ тред</strong></div>
@@ -105,8 +90,10 @@
                 <div class="item"> [<a> Ответ </a>] </div>
             </div>
 
-            <img class="image" src="http://2ch.hk/a/src/2415135/14463686257883.jpg">
-            <img class="image" src="http://2ch.hk/a/thumb/2413452/14462854415520s.jpg">
+            <a class="single_image" href="http://lokeshdhakar.com/projects/lightbox2/images/image-1.jpg">
+                <img class="image" src="http://lokeshdhakar.com/projects/lightbox2/images/image-1.jpg" alt=""/>
+            </a>
+
             <div class="text">
                 Назначение треда: помощь ньюфагам, вопросы специалистам уровня /biz/. Предыдущий:в Архиве.
 
@@ -159,6 +146,10 @@
                 <div class="item">№748301</div>
                 <div class="item"> [<a> Ответ </a>] </div>
             </div>
+
+            <a class="single_image" href="http://lokeshdhakar.com/projects/lightbox2/images/image-1.jpg">
+                <img class="image" src="http://lokeshdhakar.com/projects/lightbox2/images/image-1.jpg" alt=""/>
+            </a>
             <div class="text">
                 Назначение треда: помощь ньюфагам, вопросы специалистам уровня /biz/. Предыдущий:в Архиве.
 
