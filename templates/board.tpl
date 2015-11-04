@@ -28,6 +28,10 @@
 
 <script>
     hide("form_thread_create");
+
+    $(document).ready(function() {
+        $("a.single_image").fancybox();
+    });
 </script>
 
 <?php for ($i = 0; $i < count($threads_data); $i++): ?>
@@ -42,7 +46,9 @@
         </div>
 
         <?php if (isset($threads_data[$i]["image_url"])): ?>
-            <img class="image" src="<?php echo $threads_data[$i]["image_url"]; ?>">
+            <a class="single_image" href="<?php echo $threads_data[$i]["image_url"]; ?>">
+                <img class="image" src="<?php echo $threads_data[$i]["image_url"]; ?>" alt=""/>
+            </a>
         <?php endif; ?>
 
         <?php if (isset($threads_data[$i]["video_url"])): ?>

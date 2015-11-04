@@ -1,10 +1,13 @@
 <?php
 
-define ('MYSQL_HOST', 'localhost');
-define ('MYSQL_USER', 'root');
-define ('MYSQL_PASSWORD', '');
-define ('MYSQL_DB', 'auchan_db');
+if (!file_exists('password.php')){
+	copy('password.sample.php', 'password.php');
+}
+	require('password.php');
+
+
 define ('ROOT', __DIR__ .'/');
+define ('STATIC_DIR', 'static');
 
 $link = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD)
 	or die("Could not connect: " . mysql_error());
