@@ -40,7 +40,7 @@
 </script>
 
 <?php for ($i = 0; $i < count($posts_data); $i++): ?>
-<div style="margin-left:<?php 50 * $posts_data[$i]["depth"] ?>px;" class="post">
+<div style="margin-left:<?php echo 50 * $posts_data[$i]["depth"] ?>px;" class="post">
     <div class="header">
         <div class="item"> <strong><?php echo $posts_data[$i]["name"] ?> </strong> </div>
         <div class="item"> <?php echo $posts_data[$i]["author"] ?> </div>
