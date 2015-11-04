@@ -62,7 +62,6 @@ class index{
 			$fetch_msg["id"] = $fetch_msg["message_id"];
 			$threads_data[] = $fetch_msg;
 		}
-		var_dump($threads_data);
 		Template::display("header", array('boards_data' => self::getBoardsData()));
 		Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
 		Template::display("board");
