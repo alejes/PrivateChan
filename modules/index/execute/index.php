@@ -91,13 +91,18 @@ class index{
 		$file = str_replace('bash', '', $file);
 		$file = str_replace('python', '', $file);
 		
-		$start_dir = ROOT . STATIC_DIR .'/';
+		$start_dir = ROOT . STATIC_DIR .'/content/';
+		if (!is_dir($start_dir)){
+			mkdir($start_dir);
+			chmod($start_dir, 0777);
+		}
 		$url = STATIC_DIR . "/";
 		for($i = 0; $i <= 5; ++$i){
 			$start_dir .= $hash{$i} . "/";
 			$url .= $hash{$i} . "/";
 			if (!is_dir($start_dir)){
 				mkdir($start_dir);
+				chmod($start_dir, 0777);
 			}
 		}
 		
@@ -148,8 +153,8 @@ class index{
 		}
 		
 		
-		echo $image_url . "\n";
-		echo $video_url;
+		//echo $image_url . "\n";
+		//echo $video_url;
 		/*
 		array(2) {
   ["image_file"]=>
@@ -199,7 +204,7 @@ class index{
 		
 		
 		
-		//redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
 		
 		//Генадий Гренкин
 	}
