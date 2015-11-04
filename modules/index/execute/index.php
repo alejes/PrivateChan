@@ -62,6 +62,7 @@ class index{
 			$fetch_msg["id"] = $fetch_msg["message_id"];
 			$threads_data[] = $fetch_msg;
 		}
+		var_dump($threads_data);
 		Template::display("header", array('boards_data' => self::getBoardsData()));
 		Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
 		Template::display("board");
@@ -111,20 +112,10 @@ class index{
 			exit();
 		}
 		
-		
-		///echo "create_thread form" . '<br/>';
-		//echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
-		//echo "Tn: " . $_POST["topic_name"] . '<br/>';
-		//echo "Tt: " . $_POST["topic_text"] . '<br/>';
-		//echo "Tt: " . $_POST["topic_author"] . '<br/>';
-		//echo "Tb: " . $_POST["board"] . '<br/> ';
-		
 		$topic_author = escape($_POST["topic_author"]);
 		$topic_message = escape($_POST["topic_text"]);
 		$topic_name = escape($_POST["topic_name"]);
 		
-		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."');");
-		$q = mysql_query("SELECT @thread_id, @message_id;");		
 		
 		$add = mysql_fetch_array($q);
 		//array(4) { [0]=> string(2) "21" ["@thread_id"]=> string(2) "21" [1]=> string(2) "10" ["@message_id"]=> string(2) "10" }
@@ -144,6 +135,8 @@ class index{
 			$video_url = self::upload_file($file, $_FILES['video_file']["name"]);
 		}
 		
+		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '".$video_url."');");
+		$q = mysql_query("SELECT @thread_id, @message_id;");
 		
 		//echo $image_url . "\n";
 		//echo $video_url;
