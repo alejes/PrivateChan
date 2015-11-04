@@ -75,7 +75,14 @@ class index{
 
 
         $hash = base64_encode(sha1($file) ^ md5($file));
-        $ext = end(explode('.', $realname));
+		$allow_extension = array('webm', 'jpeg', 'jpg', 'bmp', 'gif');
+        $ext = strtolower(end(explode('.', $realname)));
+		
+		if (!in_array($ext, $allow_extension)){
+			echo "Wrong filetype";
+			throw new Exception('00673');
+		}
+		
         $filename = abs(crc32($file)) . '_' . time() . '.' . $ext;
 
         //lol!
@@ -101,8 +108,7 @@ class index{
                 chmod($start_dir, 0777);
             }
         }
-
-        //echo $start_dir. $filename .'||||||||';
+		
         file_put_contents($start_dir. $filename, $file);
 
         return $url . $filename;
@@ -119,12 +125,7 @@ class index{
         $topic_message = escape($_POST["topic_text"]);
         $topic_name = escape($_POST["topic_name"]);
 
-
         $add = mysql_fetch_array($q);
-        //array(4) { [0]=> string(2) "21" ["@thread_id"]=> string(2) "21" [1]=> string(2) "10" ["@message_id"]=> string(2) "10" }
-
-        var_dump($_POST);
-        var_dump($_FILES);
 
         $image_url = "";
         if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
@@ -140,66 +141,11 @@ class index{
         }
 
         $q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."');");
-        echo mysql_errno(). '-'. mysql_error();
+
         $q = mysql_query("SELECT @thread_id, @message_id;");
 
-        ///echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."')";
-        //echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '".$video_url."')";
-        //echo $image_url . "\n";
-        //echo $video_url;
-        /*
-        array(2) {
-  ["image_file"]=>
-  array(5) {
-    ["name"]=>
-    string(15) "zL5PaeZCCqI.jpg"
-    ["type"]=>
-    string(10) "image/jpeg"
-    ["tmp_name"]=>
-    string(23) "C:\xampp\tmp\phpB4A.tmp"
-    ["error"]=>
-    int(0)
-    ["size"]=>
-    int(584769)
-  }
-  ["video_file"]=>
-  array(5) {
-    ["name"]=>
-    string(19) "14466278445041.webm"
-    ["type"]=>
-    string(10) "video/webm"
-    ["tmp_name"]=>
-    string(23) "C:\xampp\tmp\phpB4B.tmp"
-    ["error"]=>
-    int(0)
-    ["size"]=>
-    int(2642716)
-  }
-}
-*/
-
-        /*
-        if (is_uploaded_file($_FILES['image_file']["tmp_name"])){
-            if (move_uploaded_file($_FILES['image_file']['tmp_name'], $uploadfile)) {
-                echo "Файл корректен и был успешно загружен.\n";
-            }
-        }
-        */
-        /*
-
-        ["image_file"]=>
-        string(15) "zL5PaeZCCqI.jpg"
-        ["video_file"]=>
-        string(19) "14466278445041.webm"
-        */
-
-
-
-
-//
         redirect("/".$board['board_letter']."/".$add["@thread_id"]);
 
-        //Генадий Гренкин
     }
 
     public function action_showThread($letter = "", $thread_id = ""){
