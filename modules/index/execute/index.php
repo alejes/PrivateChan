@@ -136,13 +136,13 @@ class index{
 		var_dump($_FILES);
 		
 		$image_url = "";
-		if (isset($_FILES['image_file']) && !empty($_FILES['image_file'])){
+		if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
 			$file = file_get_contents($_FILES['image_file']["tmp_name"]);
 			$image_url = self::upload_file($file, $_FILES['image_file']["name"]);
 		}
 		
 		$video_url = "";
-		if (isset($_FILES['video_file']) && !empty($_FILES['video_file'])){
+		if (isset($_FILES['video_file']["tmp_name"]) && !empty($_FILES['video_file']["tmp_name"])){
 			$file = file_get_contents($_FILES['video_file']["tmp_name"]);
 			$video_url = self::upload_file($file, $_FILES['video_file']["name"]);
 		}
