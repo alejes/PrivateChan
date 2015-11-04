@@ -17,7 +17,8 @@ class Template{
 	}
 
 	
-	private static function load($str){
+	private static function load($str, $arr){
+		self::assign($arr);
 		if (file_exists(ROOT. 'templates/'. $str . '.tpl')){
 			self::$template_file  = ROOT. 'templates/'. $str . '.tpl';
 		}
@@ -34,8 +35,8 @@ class Template{
 		return $page_content;
 	}
 	
-	public static function display($str){
-		echo self::load($str);
+	public static function display($str, $arr = array()){
+		echo self::load($str, $arr);
 		self::$vars = array();
 	}
 }

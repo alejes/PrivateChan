@@ -2,14 +2,19 @@
 
 class index{
 	
-	public function action_default(){
+	private function getBoardsData(){
 		$q = mysql_query("SELECT * FROM `boards`");
-
 		$boards_data = array();
 		while($fetch = mysql_fetch_array($q)){
 			$fetch["board_count"] = 123;
 			$boards_data[] = $fetch;
 		}
+		return $boards_data;
+	}
+	public function action_default(){
+
+		$boards_data = self::getBoardsData();
+		
 		$boards_info = array();
 		$boards_info_query = mysql_query("SELECT board_letter FROM `boards`");
 
@@ -21,7 +26,7 @@ class index{
 		$threads_data  = array();
 		
 		
-		Template::display("header");
+		Template::display("header", array('boards_data' => $boards_data));
 		Template::assign(array('boards_data' => $boards_data));
 		Template::display("board_list");
 		Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
@@ -65,7 +70,7 @@ class index{
                 $threads_data[] = $fetch_msg;
             }
         }
-        Template::display("header");
+        Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("board");
 	}
