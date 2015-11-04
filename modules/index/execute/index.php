@@ -190,19 +190,21 @@ class index{
             if ($fetch_msg["video"] != "")
                 $fetch_msg["video_url"] = $fetch_msg["video"];
             $fetch_msg["ids"] = array();
+            $fetch_msg["depth"] =  count($fetch_msg["ids"]);
             $threads_data[] = $fetch_msg;
         }
         Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('posts_data' => $threads_data, 'board_info'=> $board_info));
-        Template::display("posts");
+        Template::display("posts", array('thread_id' => $thread_id));
     }
-	public function action_createPost(){
-		if (empty($letter)){
+
+    public function action_createPost(){
+        if (empty($board_letter)){
             if (defined('ROUTE_CONTROLLER_URL')){
-                $letter = ROUTE_CONTROLLER_URL;
+                $board_letter = ROUTE_CONTROLLER_URL;
             }
             else{
-                $letter = 'a';
+                $board_letter = 'a';
             }
         }
         if (empty($thread_id)){
@@ -211,10 +213,35 @@ class index{
             }
             else throw new Exception('00404');
         }
-		echo "LT:" . $letter . '<br/>';
-		echo "TI:" . $thread_id . '<br/>';
-		
-	}
+        echo "LT:" . $board_letter . '<br/>';
+        echo "TI:" . $thread_id . '<br/>';
+
+        $post_author = escape($_POST["topic_author"]);
+        $post_message = escape($_POST["topic_text"]);
+        $answer_token = escape($_POST["parrent_token"]);
+
+        $image_url = "";
+        if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
+            print "loading image";
+            $file = file_get_contents($_FILES['image_file']["tmp_name"]);
+            $image_url = self::upload_file($file, $_FILES['image_file']["name"]);
+        }
+
+        $video_url = "";
+        if (isset($_FILES['video_file']["tmp_name"]) && !empty($_FILES['video_file']["tmp_name"])){
+            $file = file_get_contents($_FILES['video_file']["tmp_name"]);
+            $video_url = self::upload_file($file, $_FILES['video_file']["name"]);
+        }
+
+        $q = mysql_query("CALL CreateMessage(@message_id, '".$answer_token."', '".$thread_id."', '".((empty($post_author)) ? 'Аноним' : $post_author)."', '".((empty($post_message)) ? 'Я не умею писать сообщения' : $post_message)."', '".$image_url."', 'NULL', '".$video_url."');");
+        echo mysql_errno(). '-'. mysql_error();
+        $q = mysql_query("SELECT @message_id;");
+
+
+        $add = mysql_fetch_array($q);
+        redirect("/".$board_letter."/".$thread_id);
+    }
 }
+
 
 
