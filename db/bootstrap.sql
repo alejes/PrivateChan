@@ -1,19 +1,8 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- База данных: `auchan`
---
-
 -- USE auch_db;
 
--- --------------------------------------------------------
 DROP TABLE IF EXISTS boards;
 DROP TABLE IF EXISTS threads;
 DROP TABLE IF EXISTS messages;
@@ -83,26 +72,13 @@ SELECT
     b.board_id,
     t.thread_id,
     t.thread_name,
-    fm.message_id,
-    fm.body,
-    fm.ts,
-    fm.audio,
-    fm.video
+    tfm.message_id,
+    tfm.body,
+    tfm.ts,
+    tfm.audio,
+    tfm.video
 FROM threads t JOIN boards b ON t.board_id = b.board_id
-               JOIN threads_first_messages tfm ON t.thread_id = tfm.message_id 
-               JOIN first_messages fm          ON tfm.message_id = fm.message_id;
+               JOIN threads_first_messages tfm ON t.thread_id = tfm.message_id
+               ;
 
-source procedures.sql
-
---
--- Индексы сохранённых таблиц
---
-
---
--- AUTO_INCREMENT для сохранённых таблиц
---
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
+source procedures.sql;
