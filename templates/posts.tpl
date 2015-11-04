@@ -1,7 +1,7 @@
 <!-- $board_info $boards_data -->
 
 
-<h1 class="text-center"> <?php echo $board_info["name"] ?> </h1>
+<h1 class="text-center"> <a href="/<?php echo $board_info["board_letter"]; ?>"><?php echo $board_info["name"]; ?></a> </h1>
 
 <div id="form_post_create">
     <h3 class="text-center">
@@ -46,7 +46,7 @@
         <div class="item"> <?php echo $posts_data[$i]["author"] ?> </div>
         <div class="item"> <?php echo $posts_data[$i]["create_date"] ?> </div>
         <div class="item"> №<?php echo $posts_data[$i]["id"] ?> </div>
-        <div class="item"> [<a onclick="answer('<?php echo $posts_data[$i]["id"] ?>')"> Ответ </a>] </div>
+        <div class="item"> [<a onclick="answer('<?php echo $posts_data[$i]["id"] ?>')"> <strong>Ответ</strong> </a>] </div>
     </div>
 
     <?php if (isset($posts_data[$i]["image_url"])): ?>

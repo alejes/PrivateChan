@@ -163,8 +163,6 @@ class index{
             }
             else throw new Exception('00404');
         }
-        #echo $letter . '<br/>';
-        #echo $thread_id . '<br/>';
 
         $board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
         $board_info = mysql_fetch_assoc($board_info_query);
@@ -225,8 +223,7 @@ class index{
             }
             else throw new Exception('00404');
         }
-        echo "LT:" . $board_letter . '<br/>';
-        echo "TI:" . $thread_id . '<br/>';
+        
 
         $post_author = escape($_POST["topic_author"]);
         $post_message = escape($_POST["topic_text"]);
@@ -234,7 +231,6 @@ class index{
 
         $image_url = "";
         if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
-            print "loading image";
             $file = file_get_contents($_FILES['image_file']["tmp_name"]);
             $image_url = self::upload_file($file, $_FILES['image_file']["name"]);
         }
@@ -246,7 +242,6 @@ class index{
         }
 
         $q = mysql_query("CALL CreateMessage(@message_id, '".$answer_token."', '".$thread_id."', '".((empty($post_author)) ? 'Аноним' : $post_author)."', '".((empty($post_message)) ? 'Я не умею писать сообщения' : $post_message)."', '".$image_url."', 'NULL', '".$video_url."');");
-        echo mysql_errno(). '-'. mysql_error();
         $q = mysql_query("SELECT @message_id;");
 
 
