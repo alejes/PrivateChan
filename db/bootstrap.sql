@@ -62,6 +62,36 @@ CREATE TABLE IF NOT EXISTS threads_messages (
     UNIQUE(thread_id, message_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+DROP VIEW IF EXISTS first_messages_ids;
+CREATE VIEW first_messages_ids AS SELECT message_id FROM messages m WHERE m.message_id NOT IN (SELECT child_id FROM messages_parents);
+
+DROP VIEW IF EXISTS threads_first_messages;
+CREATE VIEW threads_first_messages AS 
+SELECT 
+    tm.thread_id, 
+    m.message_id,
+    m.body,
+    m.ts,
+    m.audio,
+    m.video
+FROM threads_messages tm JOIN messages m ON tm.message_id = m.message_id;
+
+DROP VIEW IF EXISTS threads_view;
+CREATE VIEW threads_view AS 
+SELECT 
+    b.board_id,
+    t.thread_id,
+    t.thread_name,
+    fm.message_id,
+    fm.body,
+    fm.ts,
+    fm.audio,
+    fm.video
+FROM threads t JOIN boards b ON t.board_id = b.board_id
+               JOIN threads_first_messages tfm ON t.thread_id = tfm.message_id 
+               JOIN first_messages fm          ON tfm.message_id = fm.message_id;
+
 source procedures.sql
 
 --
