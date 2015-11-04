@@ -49,8 +49,8 @@
     </div>
 
     <?php if (isset($posts_data[$i]["image_url"])): ?>
-        <a class="single_image" href="/<?php echo $threads_data[$i]["image_url"]; ?>">
-            <img class="image" src="/<?php echo $threads_data[$i]["image_url"]; ?>" alt=""/>
+        <a class="single_image" href="/<?php echo $posts_data[$i]["image_url"]; ?>">
+            <img class="image" src="/<?php echo $posts_data[$i]["image_url"]; ?>" alt=""/>
         </a>
     <?php endif; ?>
 

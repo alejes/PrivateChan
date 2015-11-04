@@ -52,14 +52,14 @@ class index{
         }
 
         $board_info["name"] = $board_info["board_name"];
+        $boards_query = mysql_query("SELECT * FROM `threads_view` WHERE board_id = '".$board_info["board_id"]."' ORDER BY thread_id DESC");
 
-        $boards_query = mysql_query("SELECT * FROM `threads_view` WHERE board_id = '".$board_info["board_id"]."'");
         $threads_data = array();
         while($fetch_msg = @mysql_fetch_assoc($boards_query)){
             $fetch_msg["create_date"] = $fetch_msg["ts"];
             $fetch_msg["name"] = $fetch_msg["thread_name"];
             $fetch_msg["text"] = $fetch_msg["body"];
-            $fetch_msg["id"] = $fetch_msg["message_id"];
+            $fetch_msg["id"] = $fetch_msg["thread_id"];
             if ($fetch_msg["image"] != "")
                 $fetch_msg["image_url"] = $fetch_msg["image"];
             if ($fetch_msg["video"] != "")
@@ -227,19 +227,20 @@ class index{
             throw new Exception('00906');
         }
 
-        $board_info["name"] = $board_info["board_name"];
-        $threads_query = mysql_query("SELECT * FROM `threads` WHERE board_id = '".$board_info["board_id"]."'");
-        $threads_data = mysql_fetch_assoc($threads_query);
 
-        $messages_query = mysql_query("SELECT * FROM `threads_first_messages` WHERE thread_id = '".$threads_data["thread_id"]."'");
+
+        $board_info["name"] = $board_info["board_name"];
+
+        $messages_query = mysql_query("SELECT * FROM `threads_all_messages` WHERE thread_id = '".$thread_id."'");
         $threads_data = array();
         while($fetch_msg = @mysql_fetch_assoc($messages_query)){
             $fetch_msg["create_date"] = $fetch_msg["ts"];
             $fetch_msg["name"] = "post";
             $fetch_msg["text"] = $fetch_msg["body"];
             $fetch_msg["id"] = $fetch_msg["message_id"];
-            if ($fetch_msg["image"] != "")
+            if ($fetch_msg["image"] != "") {
                 $fetch_msg["image_url"] = $fetch_msg["image"];
+            }
             if ($fetch_msg["video"] != "")
                 $fetch_msg["video_url"] = $fetch_msg["video"];
             $fetch_msg["ids"] = array();
@@ -250,3 +251,5 @@ class index{
         Template::display("posts");
     }
 }
+
+

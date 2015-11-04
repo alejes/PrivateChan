@@ -1,3 +1,6 @@
+<?php header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1 ?>
+<?php header("Pragma: no-cache"); //HTTP 1.0 ?>
+<?php header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past ?>
 <!doctype html>
 <html lang="ru">
 
@@ -11,9 +14,12 @@
 <meta name="author" content="">
 
 <title>AUChan</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="/js/fancybox.js"></script>
 <script type="text/javascript" src="/js/ui.js"></script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/fancybox.css" type="text/css" media="screen" />
 
 </head>
 
