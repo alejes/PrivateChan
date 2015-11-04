@@ -62,5 +62,6 @@
         <div class="text">
             <?php echo $threads_data[$i]["text"]; ?>
         </div>
+        <div> </div>
     </div>
 <?php endfor; ?>
