@@ -3,6 +3,7 @@ body {
 }
 
 .post {
+    overflow: auto;
     margin-top: 5px;
     background-color: #DDDDDD;
 }
@@ -34,6 +35,21 @@ body {
 .post .text {
     margin-left: 7px;
     margin-right: 7px;
+    display:block;
+
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 0;
+    padding-left: 2em;
+    list-style-position: inside;
+    text-indent:-1em;
+    overflow: hidden;
 }
 
 .post .ids {
