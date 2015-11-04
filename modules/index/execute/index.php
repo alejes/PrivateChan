@@ -194,7 +194,7 @@ class index{
         }
         Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('posts_data' => $threads_data, 'board_info'=> $board_info));
-        Template::display("posts");
+        Template::display("posts", array('thread_id' => $thread_id));
     }
 	public function action_createPost(){
 		if (empty($letter)){
