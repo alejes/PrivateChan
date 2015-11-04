@@ -125,9 +125,9 @@ class index{
             exit();
         }
 
-        $topic_author = escape($_POST["topic_author"]);
+        $topic_author = full_escape($_POST["topic_author"]);
         $topic_message = escape($_POST["topic_text"]);
-        $topic_name = escape($_POST["topic_name"]);
+        $topic_name = full_escape($_POST["topic_name"]);
 
         $add = mysql_fetch_array($q);
 
