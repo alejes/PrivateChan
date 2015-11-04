@@ -85,7 +85,7 @@ SELECT
     tfm.audio,
     tfm.video
 FROM threads t JOIN boards b ON t.board_id = b.board_id
-               JOIN threads_first_messages tfm ON t.thread_id = tfm.message_id
+               JOIN threads_first_messages tfm ON t.thread_id = tfm.thread_id
                ;
 
 source procedures.sql;
