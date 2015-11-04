@@ -46,7 +46,7 @@
         <div class="item"> <?php echo $posts_data[$i]["author"] ?> </div>
         <div class="item"> <?php echo $posts_data[$i]["create_date"] ?> </div>
         <div class="item"> №<?php echo $posts_data[$i]["id"] ?> </div>
-        <div class="item"> [<a onclick="answer('<?php echo $posts_data[$i]["id"] ?>')"> Ответ </a>] </div>
+        <div class="item"> [<a onclick="answer('<?php echo $posts_data[$i]["id"] ?>')"> <strong>Ответ</strong> </a>] </div>
     </div>
 
     <?php if (isset($posts_data[$i]["image_url"])): ?>
