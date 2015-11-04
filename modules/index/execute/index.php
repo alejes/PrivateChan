@@ -153,8 +153,8 @@ class index{
 		}
 		
 		
-		echo $image_url . "\n";
-		echo $video_url;
+		//echo $image_url . "\n";
+		//echo $video_url;
 		/*
 		array(2) {
   ["image_file"]=>
@@ -204,7 +204,7 @@ class index{
 		
 		
 		
-		//redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
 		
 		//Генадий Гренкин
 	}
