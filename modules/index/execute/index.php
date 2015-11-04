@@ -66,7 +66,7 @@ class index{
             if ($fetch_msg["video"] != "")
                 $fetch_msg["video_url"] = $fetch_msg["video"];
             $message_cnt_query = mysql_query("SELECT * FROM `threads_message_counts` WHERE thread_id = '".$fetch_msg["id"]."'");
-            $fetch_msg["answers"] = mysql_fetch_assoc($message_cnt_query)["message_count"];
+            $fetch_msg["answers"] = mysql_fetch_assoc($message_cnt_query)["message_count"] - 1;
 
             $threads_data[] = $fetch_msg;
         }
