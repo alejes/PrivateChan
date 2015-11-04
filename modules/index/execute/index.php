@@ -197,4 +197,23 @@ class index{
 		
 		//Генадий Гренкин
 	}
+	
+	public function action_showThread($letter = "", $thread_id = ""){
+		if (empty($letter)){
+				if (defined('ROUTE_CONTROLLER_URL')){
+						$letter = ROUTE_CONTROLLER_URL;
+				}
+				else{
+						$letter = 'a';
+				}
+		}
+		if (empty($thread_id)){
+				if (defined('ROUTE_SEGMENT')){
+						$thread_id = ROUTE_SEGMENT;
+				}
+				else throw new Exception('00404');
+		}
+		echo $letter . '<br/>';
+		echo $thread_id . '<br/>';
+	}
 }

@@ -96,16 +96,16 @@ class Router {
 			}
 			elseif (!empty(self::$segment1)) {
 				if (!empty(self::$segment2)){
-					self::$action = self::$segment2;
+					self::$action = "showThread";
 				}
 				else{
 					self::$action = "showBoard";
 				}
-				
 				define('ROUTE_CONTROLLER_PATH', ROOT . 'modules/index/execute/index.php');
 				define('ROUTE_CONTROLLER_NAME', 'index');
 				define('ROUTE_CONTROLLER_URL', self::$segment1);
 				define('ROUTE_ACTION', self::$action);
+				define('ROUTE_SEGMENT', self::$segment2);
 				define('ROUTE_PAGE', self::$segment3);
 				define('ROUTE_MODULE', 'index');
 				define('ROUTE_LOGIN', self::$segment1);
