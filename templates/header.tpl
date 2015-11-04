@@ -17,6 +17,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript" src="/js/fancybox.js"></script>
 <script type="text/javascript" src="/js/ui.js"></script>
+<script src="/js/ckeditor/ckeditor.js"></script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/fancybox.css" type="text/css" media="screen" />
