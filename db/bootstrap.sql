@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS threads_messages (
 DROP VIEW IF EXISTS first_messages_ids;
 CREATE VIEW first_messages_ids AS SELECT message_id FROM messages m WHERE m.message_id NOT IN (SELECT child_id FROM messages_parents);
 
-DROP VIEW IF EXISTS threads_first_messages;
-CREATE VIEW threads_first_messages AS 
+DROP VIEW IF EXISTS threads_all_messages;
+CREATE VIEW threads_all_messages AS 
 SELECT 
     tm.thread_id, 
     m.message_id,
@@ -67,8 +67,33 @@ SELECT
     m.image,
     m.audio,
     m.video
-FROM threads_messages tm JOIN first_messages_ids fmi ON tm.message_id = fmi.message_id
-    JOIN messages m ON tm.message_id = m.message_id;
+FROM threads_messages tm JOIN messages m ON tm.message_id = m.message_id;
+
+DROP VIEW IF EXISTS threads_first_messages;
+CREATE VIEW threads_first_messages AS 
+SELECT 
+    tam.thread_id, 
+    tam.message_id,
+    tam.author,
+    tam.body,
+    tam.ts,
+    tam.image,
+    tam.audio,
+    tam.video
+FROM threads_all_messages tam JOIN first_messages_ids fmi ON tam.message_id = fmi.message_id;
+    
+-- CREATE VIEW threads_first_messages AS 
+-- SELECT 
+--     tm.thread_id, 
+--     m.message_id,
+--     m.author,
+--     m.body,
+--     m.ts,
+--     m.image,
+--     m.audio,
+--     m.video
+-- FROM threads_messages tm JOIN first_messages_ids fmi ON tm.message_id = fmi.message_id
+--     JOIN messages m ON tm.message_id = m.message_id;
                                    
 
 DROP VIEW IF EXISTS threads_view;
