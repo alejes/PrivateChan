@@ -13,9 +13,10 @@
         <div class="col-xs-6 col-md-4"></div>
         <div class="col-xs-6 col-md-4">
             <form action="/<?php echo $board_info["board_letter"] ?>/createThread" method="POST" class="form-horizontal">
-                Тема <br> <input class="form-control" type="text" name="topic_name"> <br>
-                Автор <br> <input class="form-control" type="text" name="topic_author"> <br>
-                Текст <br> <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
+                <label>Тема</label> <br> <input class="form-control" type="text" name="topic_name"> <br>
+                <label>Автор</label> <br> <input class="form-control" type="text" name="topic_author" value="Анон"> <br>
+                <label>Текст</label> <br> <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
+                Картинка <input type="file" name="image_file"> <br>
                 <input type="hidden" name="board" value="<?php echo $board_info["board_letter"] ?>">
                 <input type="submit" class="btn btn-default" value="Отправить">
             </form>
