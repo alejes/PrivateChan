@@ -2,4 +2,5 @@
 tests
 *.swp
 static/content/**
+pmam/**
 password.php
