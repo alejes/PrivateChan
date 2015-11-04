@@ -6,7 +6,8 @@ class index{
         $q = mysql_query("SELECT * FROM `boards`");
         $boards_data = array();
         while($fetch = mysql_fetch_array($q)){
-            $fetch["board_count"] = 123;
+            $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` WHERE board_id = '".$fetch["board_id"]."'");
+            $fetch["board_count"] = mysql_fetch_assoc($message_cnt_query)["message_count"];
             $boards_data[] = $fetch;
         }
         return $boards_data;
@@ -64,6 +65,9 @@ class index{
                 $fetch_msg["image_url"] = $fetch_msg["image"];
             if ($fetch_msg["video"] != "")
                 $fetch_msg["video_url"] = $fetch_msg["video"];
+            $message_cnt_query = mysql_query("SELECT * FROM `threads_message_counts` WHERE thread_id = '".$fetch_msg["id"]."'");
+            $fetch_msg["answers"] = mysql_fetch_assoc($message_cnt_query)["message_count"];
+
             $threads_data[] = $fetch_msg;
         }
         Template::display("header", array('boards_data' => self::getBoardsData()));
@@ -75,14 +79,14 @@ class index{
 
 
         $hash = base64_encode(sha1($file) ^ md5($file));
-		$allow_extension = array('webm', 'jpeg', 'jpg', 'bmp', 'gif');
+        $allow_extension = array('webm', 'jpeg', 'jpg', 'bmp', 'gif');
         $ext = strtolower(end(explode('.', $realname)));
-		
-		if (!in_array($ext, $allow_extension)){
-			echo "Wrong filetype";
-			throw new Exception('00673');
-		}
-		
+
+        if (!in_array($ext, $allow_extension)){
+            echo "Wrong filetype";
+            throw new Exception('00673');
+        }
+
         $filename = abs(crc32($file)) . '_' . time() . '.' . $ext;
 
         //lol!
@@ -108,7 +112,7 @@ class index{
                 chmod($start_dir, 0777);
             }
         }
-		
+
         file_put_contents($start_dir. $filename, $file);
 
         return $url . $filename;
@@ -223,7 +227,7 @@ class index{
             }
             else throw new Exception('00404');
         }
-        
+
 
         $post_author = escape($_POST["topic_author"]);
         $post_message = escape($_POST["topic_text"]);
@@ -249,6 +253,7 @@ class index{
         redirect("/".$board_letter."/".$thread_id);
     }
 }
+
 
 
 
