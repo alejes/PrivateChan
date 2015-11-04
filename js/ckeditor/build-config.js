@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/5dbc3b496c383146a427f41e2aef75e4
+ * (2) http://ckeditor.com/builder/95f130407be19ed40a7fa66f72ec8b9e
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/5dbc3b496c383146a427f41e2aef75e4
+ * (3) http://ckeditor.com/builder/download/95f130407be19ed40a7fa66f72ec8b9e
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -53,10 +53,13 @@ var CKBUILDER_CONFIG = {
 		'basicstyles' : 1,
 		'bidi' : 1,
 		'blockquote' : 1,
+		'ckeditor-gwf-plugin' : 1,
 		'clipboard' : 1,
+		'codesnippet' : 1,
 		'colorbutton' : 1,
 		'colordialog' : 1,
 		'contextmenu' : 1,
+		'devtools' : 1,
 		'dialogadvtab' : 1,
 		'div' : 1,
 		'elementspath' : 1,
@@ -69,6 +72,8 @@ var CKBUILDER_CONFIG = {
 		'font' : 1,
 		'format' : 1,
 		'forms' : 1,
+		'gg' : 1,
+		'googledocs' : 1,
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
 		'iframe' : 1,
@@ -81,6 +86,7 @@ var CKBUILDER_CONFIG = {
 		'list' : 1,
 		'liststyle' : 1,
 		'magicline' : 1,
+		'markdown' : 1,
 		'mathedit' : 1,
 		'mathjax' : 1,
 		'maximize' : 1,
@@ -103,6 +109,7 @@ var CKBUILDER_CONFIG = {
 		'table' : 1,
 		'tabletools' : 1,
 		'templates' : 1,
+		'texzilla' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
 		'videodetector' : 1,
