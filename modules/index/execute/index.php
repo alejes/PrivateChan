@@ -135,10 +135,21 @@ class index{
 		var_dump($_POST);
 		var_dump($_FILES);
 		
-		$file = file_get_contents($_FILES['image_file']["tmp_name"]);
-		$image_url = self::upload_file($file, $_FILES['image_file']["name"]);
+		$image_url = "";
+		if (isset($_FILES['image_file'])){
+			$file = file_get_contents($_FILES['image_file']["tmp_name"]);
+			$image_url = self::upload_file($file, $_FILES['image_file']["name"]);
+		}
 		
-		echo $image_url;
+		$video_url = "";
+		if (isset($_FILES['video_file'])){
+			$file = file_get_contents($_FILES['video_file']["tmp_name"]);
+			$video_url = self::upload_file($file, $_FILES['video_file']["name"]);
+		}
+		
+		
+		echo $image_url . "\n";
+		echo $video_url;
 		/*
 		array(2) {
   ["image_file"]=>
