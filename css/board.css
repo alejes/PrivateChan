@@ -1,9 +1,10 @@
+body {
+    background-color: #EEEEEE;
+}
 
 .post {
     margin-top: 5px;
     background-color: #DDDDDD;
-    padding-left: 7px;
-    padding-right: 7px;
 }
 
 .post .vidos {
@@ -12,7 +13,6 @@
     max-height: 500px;
 
     display: block;
-    margin-top: 0px;
     margin-right: auto;
     margin-bottom: 0px;
     margin-left: auto;
@@ -20,7 +20,7 @@
 }
 
 .post .header {
-    background: #EEEEEE;
+    background: #FFFFFF;
     display: block;
     margin-bottom: 25px;
 }
@@ -29,6 +29,11 @@
     display: inline;
     margin-left: 15px;
     margin-right: 15px;
+}
+
+.post .text {
+    margin-left: 7px;
+    margin-right: 7px;
 }
 
 .post .ids {
@@ -44,7 +49,7 @@
     float: left;
     max-width: 250px;
     max-height: 250px;
-    padding: 5px;
+    padding: 7px;
 }
 
 .super_header .item {
