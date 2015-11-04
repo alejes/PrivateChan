@@ -2,6 +2,21 @@
 .post {
     margin-top: 5px;
     background-color: #DDDDDD;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.post .vidos {
+    
+    max-width: 500px;
+    max-height: 500px;
+
+    display: block;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    padding-bottom: 5px;
 }
 
 .post .header {
@@ -23,6 +38,13 @@
     margin-left:auto;
     margin-right: 5px;
     text-align: right;
+}
+
+.post .image {
+    float: left;
+    max-width: 250px;
+    max-height: 250px;
+    padding: 5px;
 }
 
 .super_header .item {
