@@ -96,7 +96,11 @@ class Router {
 			}
 			elseif (!empty(self::$segment1)) {
 				if (!empty(self::$segment2)){
-					self::$action = "showThread";
+					if (is_numeric(self::$segment2)){
+						self::$action = "showThread";
+					}else{
+						self::$action = self::$segment2;
+					}
 				}
 				else{
 					self::$action = "showBoard";
