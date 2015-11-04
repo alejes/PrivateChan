@@ -18,6 +18,7 @@
 <script type="text/javascript" src="/js/fancybox.js"></script>
 <script type="text/javascript" src="/js/ui.js"></script>
 <script src="/js/ckeditor/ckeditor.js"></script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/fancybox.css" type="text/css" media="screen" />
