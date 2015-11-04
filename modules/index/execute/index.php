@@ -35,44 +35,36 @@ class index{
 
 	}
 	public function action_showBoard($letter = ""){
-		if (empty($letter)){
-			if (defined('ROUTE_CONTROLLER_URL')){
-				$letter = ROUTE_CONTROLLER_URL;
-			}
-			else{
-				$letter = 'a';
-			}
+				if (empty($letter)){
+						if (defined('ROUTE_CONTROLLER_URL')){
+								$letter = ROUTE_CONTROLLER_URL;
+						}
+						else{
+								$letter = 'a';
+						}
+				}
+ 
+		$board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
+				$board_info = mysql_fetch_assoc($board_info_query);
+			   
+				if (!isset($board_info['board_letter'])){
+						throw new Exception('00906');
+				}
+	   
+		$board_info["name"] = $board_info["board_name"];
+ 
+		$boards_query = mysql_query("SELECT * FROM `threads_view` WHERE board_id = '".$board_info["board_id"]."'");
+		$threads_data = array();
+		while($fetch_msg = @mysql_fetch_assoc($boards_query)){
+			$fetch_msg["create_date"] = $fetch_msg["ts"];
+			$fetch_msg["name"] = $fetch_msg["author"];
+			$fetch_msg["text"] = $fetch_msg["body"];
+			$fetch_msg["id"] = $fetch_msg["message_id"];
+			$threads_data[] = $fetch_msg;
 		}
-
-        $board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
-		$board_info = mysql_fetch_assoc($board_info_query);
-		
-		if (!isset($board_info['board_letter'])){
-			throw new Exception('00906');
-		}
-        
-        $board_info["name"] = $board_info["board_name"];
-
-        $threads_query = mysql_query("SELECT * FROM `boards` AS b 
-										  	JOIN threads as t on b.board_id = t.board_id");
-
-        $threads = array();
-        $threads_data = array();
-        while($fetch = @mysql_fetch_assoc($threads_query)){
-            $threads[] = $fetch;
-            $message_query = mysql_query("select message_id, author, body, ts from `messages` as m join threads as t on t.thread_id = m.thread_id");
-            while($fetch_msg = @mysql_fetch_assoc($message_query))
-            {
-                $fetch_msg["create_date"] = $fetch_msg["ts"];
-                $fetch_msg["name"] = $fetch_msg["author"];
-                $fetch_msg["text"] = $fetch_msg["body"];
-                $fetch_msg["id"] = $fetch_msg["message_id"];
-                $threads_data[] = $fetch_msg;
-            }
-        }
-        Template::display("header", array('boards_data' => self::getBoardsData()));
-        Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
-        Template::display("board");
+		Template::display("header", array('boards_data' => self::getBoardsData()));
+		Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
+		Template::display("board");
 	}
 	
 	private function upload_file($file, $realname){
@@ -159,29 +151,29 @@ class index{
 		array(2) {
   ["image_file"]=>
   array(5) {
-    ["name"]=>
-    string(15) "zL5PaeZCCqI.jpg"
-    ["type"]=>
-    string(10) "image/jpeg"
-    ["tmp_name"]=>
-    string(23) "C:\xampp\tmp\phpB4A.tmp"
-    ["error"]=>
-    int(0)
-    ["size"]=>
-    int(584769)
+	["name"]=>
+	string(15) "zL5PaeZCCqI.jpg"
+	["type"]=>
+	string(10) "image/jpeg"
+	["tmp_name"]=>
+	string(23) "C:\xampp\tmp\phpB4A.tmp"
+	["error"]=>
+	int(0)
+	["size"]=>
+	int(584769)
   }
   ["video_file"]=>
   array(5) {
-    ["name"]=>
-    string(19) "14466278445041.webm"
-    ["type"]=>
-    string(10) "video/webm"
-    ["tmp_name"]=>
-    string(23) "C:\xampp\tmp\phpB4B.tmp"
-    ["error"]=>
-    int(0)
-    ["size"]=>
-    int(2642716)
+	["name"]=>
+	string(19) "14466278445041.webm"
+	["type"]=>
+	string(10) "video/webm"
+	["tmp_name"]=>
+	string(23) "C:\xampp\tmp\phpB4B.tmp"
+	["error"]=>
+	int(0)
+	["size"]=>
+	int(2642716)
   }
 }
 */
