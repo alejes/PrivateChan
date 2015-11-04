@@ -79,7 +79,7 @@ class index{
 
 
         $hash = base64_encode(sha1($file) ^ md5($file));
-        $allow_extension = array('webm', 'jpeg', 'jpg', 'bmp', 'gif', 'mp4');
+        $allow_extension = array('webm', 'jpeg', 'jpg', 'bmp', 'gif', 'mp4', 'png');
         $ext = strtolower(end(explode('.', $realname)));
 
         if (!in_array($ext, $allow_extension)){
