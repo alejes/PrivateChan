@@ -42,8 +42,8 @@
             <div class="item"> <?php echo $threads_data[$i]["author"] ?> </div>
             <div class="item"> <?php echo $threads_data[$i]["create_date"] ?> </div>
             <div class="item"> №<?php echo $threads_data[$i]["id"] ?> </div>
-            <div class="item"> [<a href="/<?php echo $board_info["board_letter"] ?>/<?php echo $threads_data[$i]["id"] ?>">
-                Перейти </a>] </div>
+            <div class="item"> Ответов 1. Нажмите <a href="/<?php echo $board_info["board_letter"] ?>/<?php echo $threads_data[$i]["id"] ?>">
+                ответ </a>, чтобы посмотреть. </div>
         </div>
 
         <?php if (isset($threads_data[$i]["image_url"]) && !empty($threads_data[$i]["image_url"])): ?>
