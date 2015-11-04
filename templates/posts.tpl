@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-xs-6 col-md-4"></div>
         <div class="col-xs-6 col-md-4">
-            <form type="post" action="/create_post" id="" class="form-horizontal">
+            <form enctype="multipart/form-data" type="post" action="/create_post" id="" class="form-horizontal">
                 <label>Автор<label> <br> <input class="form-control" type="text" name="post_author" value="Анон"> <br>
                 <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
                 Картинка <input type="file" name="image_file">

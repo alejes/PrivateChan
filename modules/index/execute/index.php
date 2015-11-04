@@ -101,12 +101,22 @@ class index{
 		$add = mysql_fetch_array($q);
 		//array(4) { [0]=> string(2) "21" ["@thread_id"]=> string(2) "21" [1]=> string(2) "10" ["@message_id"]=> string(2) "10" }
 		
-		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+		var_dump($_POST);
+		var_dump($_FILES);
 		
-		//var_dump($add);
-        #INSERT INTO `messages` (`message_id`, `author_name`, `body`, `thread_id`) VALUES (NULL, 'anon', 'Текст сообщения', '0');
-        #INSERT INTO `threads` (`thread_id`, `thread_name`, `board_id`, `first_message_id`) VALUES ('', 'Gurenn Lagann', '1', '0');
-		//CALL CreateThread (@thread_id, @message_id, "THREAD NAME", 1, "ANONIM", "TEXT MESSAGE") 
+		/*
+		
+		["image_file"]=>
+		string(15) "zL5PaeZCCqI.jpg"
+		["video_file"]=>
+		string(19) "14466278445041.webm"
+		*/
+		
+		
+		
+		
+		//redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+		
 		//Генадий Гренкин
 	}
 }
