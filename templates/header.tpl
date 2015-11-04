@@ -19,3 +19,6 @@
 
 <body>
 <div class="container">
+<?php 
+	Template::display("boards_header", array('boards_data' => $boards_data));
+?>

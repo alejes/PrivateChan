@@ -14,7 +14,8 @@
             <form type="post" action="/create_post" id="" class="form-horizontal">
                 <label>Автор<label> <br> <input class="form-control" type="text" name="post_author" value="Анон"> <br>
                 <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
-                Картинка <input type="file" name="image_file"> <br>
+                Картинка <input type="file" name="image_file">
+                Видосик <input type="file" name="video_file"> <br>
                 <input type="hidden" name="board" text="<?php echo $board_info["name"] ?>">
                 <input id="answer_token" type="hidden" name="parrent_token" value="">
                 <input class="btn btn-default" type="submit" value="Ответить">
@@ -42,6 +43,18 @@
         <div class="item"> №<?php echo $posts_data[$i]["id"] ?> </div>
         <div class="item"> [<a onclick="answer('<?php echo $posts_data[$i]["id"] ?>')"> Ответ </a>] </div>
     </div>
+
+    <?php if (isset($posts_data[$i]["image_url"])): ?>
+    <img class="image" src="<?php echo $posts_data[$i]["image_url"]; ?>">
+    <?php endif; ?>
+
+    <?php if (isset($posts_data[$i]["video_url"])): ?>
+    <div>
+        <video class="vidos text-center" id="html5video" name="media" loop="1" controls>
+            <source class="video" height="100%" width="100%" type="video/webm" src="<?php echo $posts_data[$i]["video_url"]; ?>">
+        </video>
+    </div>
+    <?php endif; ?>
 
     <div class="text">
         <?php echo $posts_data[$i]["text"] ?>

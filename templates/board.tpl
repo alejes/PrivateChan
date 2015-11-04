@@ -17,6 +17,7 @@
                 <label>Автор</label> <br> <input class="form-control" type="text" name="topic_author" value="Анон"> <br>
                 <label>Текст</label> <br> <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
                 Картинка <input type="file" name="image_file"> <br>
+                Видосик <input type="file" name="video_file"> <br>
                 <input type="hidden" name="board" value="<?php echo $board_info["board_letter"] ?>">
                 <input type="submit" class="btn btn-default" value="Отправить">
             </form>
@@ -40,8 +41,20 @@
                 Перейти </a>] </div>
         </div>
 
+        <?php if (isset($threads_data[$i]["image_url"])): ?>
+            <img class="image" src="<?php echo $threads_data[$i]["image_url"]; ?>">
+        <?php endif; ?>
+
+        <?php if (isset($threads_data[$i]["video_url"])): ?>
+            <div>
+                <video class="vidos text-center" id="html5video" name="media" loop="1" controls>
+                    <source class="video" height="100%" width="100%" type="video/webm" src="<?php echo $threads_data[$i]["video_url"]; ?>">
+                </video>
+            </div>
+        <?php endif; ?>
+
         <div class="text">
-            <?php echo $threads_data[$i]["text"] ?>
+            <?php echo $threads_data[$i]["text"]; ?>
         </div>
         <div class="ids"> <a> <?php echo $threads_data[$i]["ids"] ?> </a> </div>
     </div>

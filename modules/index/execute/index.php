@@ -2,14 +2,19 @@
 
 class index{
 	
-	public function action_default(){
+	private function getBoardsData(){
 		$q = mysql_query("SELECT * FROM `boards`");
-
 		$boards_data = array();
 		while($fetch = mysql_fetch_array($q)){
 			$fetch["board_count"] = 123;
 			$boards_data[] = $fetch;
 		}
+		return $boards_data;
+	}
+	public function action_default(){
+
+		$boards_data = self::getBoardsData();
+		
 		$boards_info = array();
 		$boards_info_query = mysql_query("SELECT board_letter FROM `boards`");
 
@@ -21,7 +26,7 @@ class index{
 		$threads_data  = array();
 		
 		
-		Template::display("header");
+		Template::display("header", array('boards_data' => $boards_data));
 		Template::assign(array('boards_data' => $boards_data));
 		Template::display("board_list");
 		Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
@@ -40,13 +45,16 @@ class index{
 		}
 
         $board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
-        while($fetch = @mysql_fetch_assoc($board_info_query)){
-            $board_info = $fetch;
-        }
+		$board_info = mysql_fetch_assoc($board_info_query);
+		
+		if (!isset($board_info['board_letter'])){
+			throw new Exception('00906');
+		}
+        
         $board_info["name"] = $board_info["board_name"];
 
         $threads_query = mysql_query("SELECT * FROM `boards` AS b 
-											JOIN threads as t on b.board_id = t.board_id");
+										  	JOIN threads as t on b.board_id = t.board_id");
 
         $threads = array();
         $threads_data = array();
@@ -62,19 +70,43 @@ class index{
                 $threads_data[] = $fetch_msg;
             }
         }
-        Template::display("header");
+        Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("board");
 	}
 	
 	public function action_createThread(){
-		echo "create_thread form" . '<br/>';
-		echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
-		echo "Tn: " . $_POST["topic_name"] . '<br/>';
-		echo "Tt: " . $_POST["topic_text"] . '<br/>';
-		echo "Tb: " . $_POST["board"] . '<br/> ';
+		$q = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".escape(ROUTE_CONTROLLER_URL)."')");
+		$board = mysql_fetch_array($q);
+		if (!isset($board['board_id'])){
+			throw new Exception("00506");
+			exit();
+		}
+		
+		
+		///echo "create_thread form" . '<br/>';
+		//echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
+		//echo "Tn: " . $_POST["topic_name"] . '<br/>';
+		//echo "Tt: " . $_POST["topic_text"] . '<br/>';
+		//echo "Tt: " . $_POST["topic_author"] . '<br/>';
+		//echo "Tb: " . $_POST["board"] . '<br/> ';
+		
+		$topic_author = escape($_POST["topic_author"]);
+		$topic_message = escape($_POST["topic_text"]);
+		$topic_name = escape($_POST["topic_name"]);
+		
+		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."');");
+		$q = mysql_query("SELECT @thread_id, @message_id;");		
+		
+		$add = mysql_fetch_array($q);
+		//array(4) { [0]=> string(2) "21" ["@thread_id"]=> string(2) "21" [1]=> string(2) "10" ["@message_id"]=> string(2) "10" }
+		
+		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+		
+		//var_dump($add);
         #INSERT INTO `messages` (`message_id`, `author_name`, `body`, `thread_id`) VALUES (NULL, 'anon', 'Текст сообщения', '0');
         #INSERT INTO `threads` (`thread_id`, `thread_name`, `board_id`, `first_message_id`) VALUES ('', 'Gurenn Lagann', '1', '0');
-
+		//CALL CreateThread (@thread_id, @message_id, "THREAD NAME", 1, "ANONIM", "TEXT MESSAGE") 
+		//Генадий Гренкин
 	}
 }

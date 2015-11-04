@@ -2,6 +2,7 @@
 require "config.php";
 require "libraries/router.php";
 require "libraries/template.php";
+require "kernel/general.php";
 
 Router::route();
 
