@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS threads_messages (
     message_id INTEGER,
     CONSTRAINT FOREIGN KEY (thread_id) REFERENCES threads(thread_id) ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE,
-    UNIQUE(thread_id, message_id)
+    UNIQUE(message_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -102,8 +102,26 @@ SELECT
     tfm.audio,
     tfm.video
 FROM threads t JOIN boards b ON t.board_id = b.board_id
-               JOIN threads_first_messages tfm ON t.thread_id = tfm.thread_id
+               JOIN threads_first_messages tfm ON t.thread_id = tfm.thread_id -- WHERE instead of ON maybe???
                ;
 
+
+DROP VIEW IF EXISTS threads_message_counts;
+CREATE VIEW threads_message_counts AS
+SELECT 
+   thread_id,
+   COUNT(*) AS message_count
+FROM threads_messages GROUP BY thread_id;
+
+
+DROP VIEW IF EXISTS boards_message_counts;
+CREATE VIEW boards_message_counts AS
+SELECT 
+    b.board_id,
+    IFNULL(SUM(tmc.message_count), 0) AS message_count
+FROM boards b LEFT JOIN threads t ON t.board_id = b.board_id 
+   LEFT JOIN threads_message_counts tmc ON tmc.thread_id = t.thread_id
+GROUP BY board_id;
+    
 source procedures.sql;
 
