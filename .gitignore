@@ -1,4 +1,5 @@
 .idea
 tests
 *.swp
+static/content/**
 password.php
