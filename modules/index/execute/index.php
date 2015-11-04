@@ -190,18 +190,6 @@ class index{
             if ($fetch_msg["video"] != "")
                 $fetch_msg["video_url"] = $fetch_msg["video"];
             $fetch_msg["ids"] = array();
-            $curr_id = $fetch_msg["message_id"];
-            while ($curr_id > 0) {
-                $messages_parents_query = mysql_query("SELECT * FROM `messages_parents` WHERE child_id = '" . $curr_id . "'");
-                $flag = true;
-                while ($fetch_parent_ids = @mysql_fetch_assoc($messages_parents_query)) {
-                    $fetch_msg["ids"][] = $fetch_parent_ids["parent_id"];
-                    $curr_id = $fetch_parent_ids["parent_id"];
-                    $flag = false;
-                }
-                if ($flag)
-                    $curr_id = 0;
-            }
             $fetch_msg["depth"] =  count($fetch_msg["ids"]);
             $threads_data[] = $fetch_msg;
         }
