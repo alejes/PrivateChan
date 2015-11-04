@@ -60,6 +60,7 @@ CREATE VIEW threads_first_messages AS
 SELECT 
     tm.thread_id, 
     m.message_id,
+    m.author,
     m.body,
     m.ts,
     m.audio,
@@ -73,6 +74,7 @@ SELECT
     t.thread_id,
     t.thread_name,
     tfm.message_id,
+    tfm.author,
     tfm.body,
     tfm.ts,
     tfm.audio,
