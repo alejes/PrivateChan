@@ -40,9 +40,12 @@ class index{
 		}
 
         $board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
-        while($fetch = @mysql_fetch_assoc($board_info_query)){
-            $board_info = $fetch;
-        }
+		$board_info = mysql_fetch_assoc($board_info_query);
+		
+		if (!isset($board_info['board_letter'])){
+			throw new Exception('00906');
+		}
+        
         $board_info["name"] = $board_info["board_name"];
 
         $threads_query = mysql_query("SELECT * FROM `boards` AS b 
@@ -76,12 +79,12 @@ class index{
 		}
 		
 		
-		echo "create_thread form" . '<br/>';
-		echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
-		echo "Tn: " . $_POST["topic_name"] . '<br/>';
-		echo "Tt: " . $_POST["topic_text"] . '<br/>';
-		echo "Tt: " . $_POST["topic_author"] . '<br/>';
-		echo "Tb: " . $_POST["board"] . '<br/> ';
+		///echo "create_thread form" . '<br/>';
+		//echo "Thread: " . ROUTE_CONTROLLER_URL . '<br/>';
+		//echo "Tn: " . $_POST["topic_name"] . '<br/>';
+		//echo "Tt: " . $_POST["topic_text"] . '<br/>';
+		//echo "Tt: " . $_POST["topic_author"] . '<br/>';
+		//echo "Tb: " . $_POST["board"] . '<br/> ';
 		
 		$topic_author = escape($_POST["topic_author"]);
 		$topic_message = escape($_POST["topic_text"]);
@@ -91,7 +94,11 @@ class index{
 		$q = mysql_query("SELECT @thread_id, @message_id;");		
 		
 		$add = mysql_fetch_array($q);
-		var_dump($add);
+		//array(4) { [0]=> string(2) "21" ["@thread_id"]=> string(2) "21" [1]=> string(2) "10" ["@message_id"]=> string(2) "10" }
+		
+		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+		
+		//var_dump($add);
         #INSERT INTO `messages` (`message_id`, `author_name`, `body`, `thread_id`) VALUES (NULL, 'anon', 'Текст сообщения', '0');
         #INSERT INTO `threads` (`thread_id`, `thread_name`, `board_id`, `first_message_id`) VALUES ('', 'Gurenn Lagann', '1', '0');
 		//CALL CreateThread (@thread_id, @message_id, "THREAD NAME", 1, "ANONIM", "TEXT MESSAGE") 
