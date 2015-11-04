@@ -42,7 +42,7 @@
         </div>
 
         <?php if (isset($threads_data[$i]["image_url"])): ?>
-            <img class="image" src="<?php echo $threads_data[$i]["image_url"]">
+            <img class="image" src="<?php echo $threads_data[$i]["image_url"]; ?>">
         <?php endif; ?>
 
         <?php if (isset($threads_data[$i]["video_url"])): ?>
