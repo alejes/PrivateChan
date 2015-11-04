@@ -57,7 +57,7 @@ class index{
 		$threads_data = array();
 		while($fetch_msg = @mysql_fetch_assoc($boards_query)){
 			$fetch_msg["create_date"] = $fetch_msg["ts"];
-			$fetch_msg["name"] = $fetch_msg["author"];
+			$fetch_msg["name"] = $fetch_msg["thread_name"];
 			$fetch_msg["text"] = $fetch_msg["body"];
 			$fetch_msg["id"] = $fetch_msg["message_id"];
 			$threads_data[] = $fetch_msg;
@@ -135,9 +135,12 @@ class index{
 			$video_url = self::upload_file($file, $_FILES['video_file']["name"]);
 		}
 		
-		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '".$video_url."');");
+		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '', '".$video_url."');");
+		//echo mysql_errno(). '-'. mysql_error();
 		$q = mysql_query("SELECT @thread_id, @message_id;");
 		
+		echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '', '".$video_url."')";
+		//echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '".$video_url."')";
 		//echo $image_url . "\n";
 		//echo $video_url;
 		/*
@@ -189,7 +192,7 @@ class index{
 		
 		
 		
-		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+//		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
 		
 		//Генадий Гренкин
 	}
