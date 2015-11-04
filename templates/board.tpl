@@ -45,16 +45,16 @@
                 Перейти </a>] </div>
         </div>
 
-        <?php if (isset($threads_data[$i]["image_url"])): ?>
-            <a class="single_image" href="<?php echo $threads_data[$i]["image_url"]; ?>">
-                <img class="image" src="<?php echo $threads_data[$i]["image_url"]; ?>" alt=""/>
+        <?php if (isset($threads_data[$i]["image_url"]) && !empty($threads_data[$i]["image_url"])): ?>
+            <a class="single_image" href="/<?php echo $threads_data[$i]["image_url"]; ?>">
+                <img class="image" src="/<?php echo $threads_data[$i]["image_url"]; ?>" alt=""/>
             </a>
         <?php endif; ?>
 
-        <?php if (isset($threads_data[$i]["video_url"])): ?>
+        <?php if (isset($threads_data[$i]["video_url"]) && !empty($threads_data[$i]["video_url"])): ?>
             <div>
                 <video class="vidos text-center" id="html5video" name="media" loop="1" controls>
-                    <source class="video" height="100%" width="100%" type="video/webm" src="<?php echo $threads_data[$i]["video_url"]; ?>">
+                    <source class="video" height="100%" width="100%" type="video/webm" src="/<?php echo $threads_data[$i]["video_url"]; ?>">
                 </video>
             </div>
         <?php endif; ?>
@@ -62,5 +62,7 @@
         <div class="text">
             <?php echo $threads_data[$i]["text"]; ?>
         </div>
+        <div class="ids"> </div>
+
     </div>
 <?php endfor; ?>
