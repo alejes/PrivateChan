@@ -196,6 +196,25 @@ class index{
         Template::assign(array('posts_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("posts");
     }
+	public function action_createPost(){
+		if (empty($letter)){
+            if (defined('ROUTE_CONTROLLER_URL')){
+                $letter = ROUTE_CONTROLLER_URL;
+            }
+            else{
+                $letter = 'a';
+            }
+        }
+        if (empty($thread_id)){
+            if (defined('ROUTE_SEGMENT')){
+                $thread_id = ROUTE_SEGMENT;
+            }
+            else throw new Exception('00404');
+        }
+		echo "LT:" . $letter . '<br/>';
+		echo "TI:" . $thread_id . '<br/>';
+		
+	}
 }
 
 
