@@ -32,6 +32,10 @@
         document.getElementById("answer_token").value = id;
         show("form_post_create");
     }
+
+    $(document).ready(function() {
+        $("a.single_image").fancybox();
+    });
 </script>
 
 <?php for ($i = 0; $i < count($posts_data); $i++): ?>
@@ -45,13 +49,15 @@
     </div>
 
     <?php if (isset($posts_data[$i]["image_url"])): ?>
-    <img class="image" src="<?php echo $posts_data[$i]["image_url"]; ?>">
+        <a class="single_image" href="/<?php echo $threads_data[$i]["image_url"]; ?>">
+            <img class="image" src="/<?php echo $threads_data[$i]["image_url"]; ?>" alt=""/>
+        </a>
     <?php endif; ?>
 
     <?php if (isset($posts_data[$i]["video_url"])): ?>
     <div>
         <video class="vidos text-center" id="html5video" name="media" loop="1" controls>
-            <source class="video" height="100%" width="100%" type="video/webm" src="<?php echo $posts_data[$i]["video_url"]; ?>">
+            <source class="video" height="100%" width="100%" type="video/webm" src="/<?php echo $posts_data[$i]["video_url"]; ?>">
         </video>
     </div>
     <?php endif; ?>

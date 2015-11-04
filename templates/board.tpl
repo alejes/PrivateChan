@@ -54,7 +54,7 @@
         <?php if (isset($threads_data[$i]["video_url"]) && !empty($threads_data[$i]["video_url"])): ?>
             <div>
                 <video class="vidos text-center" id="html5video" name="media" loop="1" controls>
-                    <source class="video" height="100%" width="100%" type="video/webm" src="<?php echo $threads_data[$i]["video_url"]; ?>">
+                    <source class="video" height="100%" width="100%" type="video/webm" src="/<?php echo $threads_data[$i]["video_url"]; ?>">
                 </video>
             </div>
         <?php endif; ?>
