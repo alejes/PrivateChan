@@ -35,14 +35,14 @@ class index{
 
 	}
 	public function action_showBoard($letter = ""){
-				if (empty($letter)){
-						if (defined('ROUTE_CONTROLLER_URL')){
-								$letter = ROUTE_CONTROLLER_URL;
-						}
-						else{
-								$letter = 'a';
-						}
+		if (empty($letter)){
+				if (defined('ROUTE_CONTROLLER_URL')){
+						$letter = ROUTE_CONTROLLER_URL;
 				}
+				else{
+						$letter = 'a';
+				}
+		}
  
 		$board_info_query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".$letter."')");
 				$board_info = mysql_fetch_assoc($board_info_query);
@@ -135,11 +135,11 @@ class index{
 			$video_url = self::upload_file($file, $_FILES['video_file']["name"]);
 		}
 		
-		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '', '".$video_url."');");
+		$q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."');");
 		//echo mysql_errno(). '-'. mysql_error();
 		$q = mysql_query("SELECT @thread_id, @message_id;");
 		
-		echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '', '".$video_url."')";
+		///echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."')";
 		//echo "CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', '".$video_url."')";
 		//echo $image_url . "\n";
 		//echo $video_url;
@@ -192,7 +192,8 @@ class index{
 		
 		
 		
-//		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
+//		
+		redirect("/".$board['board_letter']."/".$add["@thread_id"]);
 		
 		//Генадий Гренкин
 	}
