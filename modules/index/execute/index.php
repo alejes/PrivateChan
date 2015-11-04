@@ -52,8 +52,8 @@ class index{
         }
 
         $board_info["name"] = $board_info["board_name"];
+        $boards_query = mysql_query("SELECT * FROM `threads_view` WHERE board_id = '".$board_info["board_id"]."' ORDER BY thread_id DESC");
 
-        $boards_query = mysql_query("SELECT * FROM `threads_view` WHERE board_id = '".$board_info["board_id"]."'");
         $threads_data = array();
         while($fetch_msg = @mysql_fetch_assoc($boards_query)){
             $fetch_msg["create_date"] = $fetch_msg["ts"];
@@ -251,4 +251,5 @@ class index{
         Template::display("posts");
     }
 }
+
 
