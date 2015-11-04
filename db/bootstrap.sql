@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS messages (
     author CHAR(255) DEFAULT 'Anonymous',
 	body TEXT NOT NULL,
     ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    image TEXT DEFAULT NULL,
     audio TEXT DEFAULT NULL,
     video TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -63,9 +64,12 @@ SELECT
     m.author,
     m.body,
     m.ts,
+    m.image,
     m.audio,
     m.video
-FROM threads_messages tm JOIN messages m ON tm.message_id = m.message_id;
+FROM threads_messages tm JOIN first_messages_ids fmi ON tm.message_id = fmi.message_id
+    JOIN messages m ON tm.message_id = m.message_id;
+                                   
 
 DROP VIEW IF EXISTS threads_view;
 CREATE VIEW threads_view AS 
@@ -77,6 +81,7 @@ SELECT
     tfm.author,
     tfm.body,
     tfm.ts,
+    tfm.image,
     tfm.audio,
     tfm.video
 FROM threads t JOIN boards b ON t.board_id = b.board_id
