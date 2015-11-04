@@ -2,6 +2,8 @@ AddDefaultCharset UTF-8
 
 Options -Indexes
 
+ServerSignature Off
+
 # Protect hidden files from being viewed
 <Files .*>
 	Order Deny,Allow
