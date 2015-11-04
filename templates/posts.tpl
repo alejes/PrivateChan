@@ -1,7 +1,7 @@
 <!-- $board_info $boards_data -->
 
 
-<h1 class="text-center"> <?php echo $board_info["name"] ?> </h1>
+<h1 class="text-center"> <a href="/<?php echo $board_info["board_letter"]; ?>"><?php echo $board_info["name"]; ?></a> </h1>
 
 <div id="form_post_create">
     <h3 class="text-center">
