@@ -62,7 +62,7 @@
     <div class="ids">
         <?php for ($i = 0; $i < count($posts_data[$i]["ids"]); $i++): ?>
             [<a href="#<?php echo $posts_data[$i]["ids"][$i] ?>"><?php echo $posts_data[$i]["ids"][$i] ?></a>]
-        <?php endif; ?>
+        <?php endfor; ?>
     </div>
 </div>
 
