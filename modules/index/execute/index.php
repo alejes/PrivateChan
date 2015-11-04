@@ -49,7 +49,7 @@ class index{
         $board_info["name"] = $board_info["board_name"];
 
         $threads_query = mysql_query("SELECT * FROM `boards` AS b 
-											JOIN threads as t on b.board_id = t.board_id");
+										 	JOIN threads as t on b.board_id = t.board_id");
 
         $threads = array();
         $threads_data = array();
