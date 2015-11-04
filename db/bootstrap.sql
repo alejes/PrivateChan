@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS boards (
 CREATE TABLE IF NOT EXISTS threads (
     thread_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     thread_name CHAR(255) NOT NULL,
-    board_id INTEGER REFERENCES boards(board_id)
+    board_id INTEGER,
+    CONSTRAINT FOREIGN KEY (board_id) REFERENCES boards(board_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -40,15 +41,19 @@ CREATE TABLE IF NOT EXISTS messages (
 
 
 CREATE TABLE IF NOT EXISTS messages_parents (
-    parent_id INTEGER REFERENCES messages(message_id),
-    child_id INTEGER REFERENCES messages(message_id),
-    UNIQUE (parent_id, child_id)
+    parent_id INTEGER,
+    child_id  INTEGER,
+    CONSTRAINT FOREIGN KEY (parent_id) REFERENCES messages(message_id) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (child_id) REFERENCES messages(message_id) ON DELETE CASCADE,
+    UNIQUE (child_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS threads_messages (
-    thread_id INTEGER REFERENCES threads(thread_id),
-    message_id INTEGER REFERENCES messages(message_id),
+    thread_id  INTEGER,
+    message_id INTEGER,
+    CONSTRAINT FOREIGN KEY (thread_id) REFERENCES threads(thread_id) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE,
     UNIQUE(thread_id, message_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -81,19 +86,6 @@ SELECT
     tam.audio,
     tam.video
 FROM threads_all_messages tam JOIN first_messages_ids fmi ON tam.message_id = fmi.message_id;
-    
--- CREATE VIEW threads_first_messages AS 
--- SELECT 
---     tm.thread_id, 
---     m.message_id,
---     m.author,
---     m.body,
---     m.ts,
---     m.image,
---     m.audio,
---     m.video
--- FROM threads_messages tm JOIN first_messages_ids fmi ON tm.message_id = fmi.message_id
---     JOIN messages m ON tm.message_id = m.message_id;
                                    
 
 DROP VIEW IF EXISTS threads_view;
@@ -114,3 +106,4 @@ FROM threads t JOIN boards b ON t.board_id = b.board_id
                ;
 
 source procedures.sql;
+
