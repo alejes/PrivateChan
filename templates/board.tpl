@@ -41,7 +41,7 @@
             <div class="item"> <?php echo $threads_data[$i]["author"] ?> </div>
             <div class="item"> <?php echo $threads_data[$i]["create_date"] ?> </div>
             <div class="item"> №<?php echo $threads_data[$i]["id"] ?> </div>
-            <div class="item"> [<a href="/<?php echo $board_info["name"] ?>/ <?php echo $threads_data[$i]["id"] ?>">
+            <div class="item"> [<a href="/<?php echo $board_info["board_letter"] ?>/<?php echo $threads_data[$i]["id"] ?>">
                 Перейти </a>] </div>
         </div>
 
@@ -62,6 +62,5 @@
         <div class="text">
             <?php echo $threads_data[$i]["text"]; ?>
         </div>
-        <div class="ids"> <a> <?php echo $threads_data[$i]["ids"] ?> </a> </div>
     </div>
 <?php endfor; ?>
