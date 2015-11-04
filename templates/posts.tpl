@@ -11,12 +11,13 @@
     <div class="row">
         <div class="col-xs-6 col-md-4"></div>
         <div class="col-xs-6 col-md-4">
-            <form enctype="multipart/form-data" type="post" action="/create_post" id="" class="form-horizontal">
-                <label>Автор<label> <br> <input class="form-control" type="text" name="post_author" value="Анон"> <br>
-                <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
-                Картинка <input type="file" name="image_file">
+			<form enctype="multipart/form-data" action="/<?php echo $board_info["board_letter"] ?>/23/createPost" method="POST" class="form-horizontal">
+                <label>Тема</label> <br> <input class="form-control" type="text" name="topic_name"> <br>
+                <label>Автор</label> <br> <input class="form-control" type="text" name="topic_author" value="Анон"> <br>
+                <label>Текст</label> <br> <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
+                Картинка <input type="file" name="image_file"> <br>
                 Видосик <input type="file" name="video_file"> <br>
-                <input type="hidden" name="board" text="<?php echo $board_info["name"] ?>">
+                <input type="hidden" name="board" value="<?php echo $board_info["board_letter"] ?>">
                 <input id="answer_token" type="hidden" name="parrent_token" value="">
                 <input class="btn btn-default" type="submit" value="Ответить">
             </form>
