@@ -77,6 +77,7 @@ class index{
         Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("board");
+		Template::display("footer");
     }
 
     private function upload_file($file, $realname){
@@ -214,6 +215,7 @@ class index{
         Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('posts_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("posts", array('thread_id' => $thread_id));
+        Template::display("footer");
     }
 
     public function action_createPost(){
