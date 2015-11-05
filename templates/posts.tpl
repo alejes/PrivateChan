@@ -63,9 +63,11 @@
         <?php echo $posts_data[$i]["text"] ?>
     </div>
     <div class="ids">
-        <?php for ($j = 0; $j < count($posts_data[$i]["ids"]); $j++): ?>
-            [<a href="#<?php echo $posts_data[$i]["ids"][$i] ?>"><?php echo $posts_data[$i]["ids"][$j] ?></a>]
-        <?php endfor; ?>
+		<?php if (is_array($posts_data[$i]["ids"])): ?>
+			<?php for ($j = 0; $j < count($posts_data[$i]["ids"]); $j++): ?>
+				[<a href="#<?php echo $posts_data[$i]["ids"][$i] ?>"><?php echo $posts_data[$i]["ids"][$j] ?></a>]
+			<?php endfor; ?>
+		<?php endif; ?>
     </div>
 </div>
 
