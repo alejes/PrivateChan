@@ -10,7 +10,7 @@ class index{
         $query = mysql_query("SELECT * FROM `boards`");
         $boards_data = array();
         while($fetch = mysql_fetch_array($query)){
-            $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` WHERE board_id = '".$fetch["board_id"]."'");
+            $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` WHERE (`board_id` = '".$fetch["board_id"]."')");
             $fetch["board_count"] = mysql_fetch_assoc($message_cnt_query)["message_count"];
             $boards_data[] = $fetch;
         }
@@ -22,7 +22,7 @@ class index{
         $boards_data = self::getBoardsData();
 
         $boards_info = array();
-        $boards_info_query = mysql_query("SELECT board_letter FROM `boards`");
+        $boards_info_query = mysql_query("SELECT `board_letter` FROM `boards`");
 
         while($fetch = mysql_fetch_array($boards_info_query)){
             $boards_info[] = $fetch;
@@ -77,7 +77,7 @@ class index{
         Template::display("header", array('boards_data' => self::getBoardsData()));
         Template::assign(array('threads_data' => $threads_data, 'board_info'=> $board_info));
         Template::display("board");
-		Template::display("footer");
+        Template::display("footer");
     }
 
     private function upload_file($file, $realname){
@@ -138,7 +138,6 @@ class index{
 
         $image_url = "";
         if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
-            print "loading image";
             $file = file_get_contents($_FILES['image_file']["tmp_name"]);
             $image_url = self::upload_file($file, $_FILES['image_file']["name"]);
         }
@@ -148,6 +147,8 @@ class index{
             $file = file_get_contents($_FILES['video_file']["tmp_name"]);
             $video_url = self::upload_file($file, $_FILES['video_file']["name"]);
         }
+
+        //Мы не ограничиваем пользователей. Но если они не заполнии часть обязательных полей, предложим им наиболее подходящее название, исходя из интересов среднестатистического имиджбордера
 
         $query = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."')");
 
@@ -184,7 +185,7 @@ class index{
 
         $board_info["name"] = $board_info["board_name"];
 
-        $messages_query = mysql_query("SELECT * FROM `threads_all_messages` WHERE thread_id = '".$thread_id."'");
+        $messages_query = mysql_query("SELECT * FROM `threads_all_messages` WHERE (`thread_id` = '".$thread_id."')");
         $threads_data = array();
         while($fetch_msg = @mysql_fetch_assoc($messages_query)){
             $fetch_msg["create_date"] = $fetch_msg["ts"];
@@ -199,7 +200,7 @@ class index{
             $fetch_msg["ids"] = array();
             $curr_id = $fetch_msg["message_id"];
             while ($curr_id > 0) {
-                $messages_parents_query = mysql_query("SELECT * FROM `messages_parents` WHERE child_id = '" . $curr_id . "'");
+                $messages_parents_query = mysql_query("SELECT * FROM `messages_parents` WHERE (`child_id` = '" . $curr_id . "')");
                 $flag = true;
                 while ($fetch_parent_ids = @mysql_fetch_assoc($messages_parents_query)) {
                     $fetch_msg["ids"][] = $fetch_parent_ids["parent_id"];
