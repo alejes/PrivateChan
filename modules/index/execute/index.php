@@ -65,6 +65,11 @@ class index{
         $board_info["name"] = $board_info["board_name"];
         $boards_query = mysql_query("SELECT * FROM `threads_view` WHERE board_id = '".$board_info["board_id"]."' ORDER BY thread_id DESC");
 
+        $message_cnt_query = mysql_query("SELECT * FROM `threads_message_counts` GROUP BY thread_id ");
+        $threads_messages_count = array();
+        while ($fetch = mysql_fetch_assoc($message_cnt_query)) {
+            $threads_messages_count[$fetch["thread_id"]] = $fetch["message_count"];
+        }
         $threads_data = array();
         while($fetch_msg = @mysql_fetch_assoc($boards_query)){
             $fetch_msg["create_date"] = $fetch_msg["ts"];
@@ -75,8 +80,8 @@ class index{
                 $fetch_msg["image_url"] = $fetch_msg["image"];
             if ($fetch_msg["video"] != "")
                 $fetch_msg["video_url"] = $fetch_msg["video"];
-            $message_cnt_query = mysql_query("SELECT * FROM `threads_message_counts` WHERE thread_id = '".$fetch_msg["id"]."'");
-            $fetch_msg["answers"] = mysql_fetch_assoc($message_cnt_query)["message_count"] - 1;
+
+            $fetch_msg["answers"] = $threads_messages_count[$fetch_msg["thread_id"]] - 1;
 
             $threads_data[] = $fetch_msg;
         }
