@@ -14,6 +14,9 @@ function escape($str){
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Attr.AllowedClasses',array('header', 'math-tex', 'border')); // или Attr.ForbiddenClasses, если имеются ввиду запрещённые CSS классы
     $config->set('AutoFormat.RemoveEmpty',true); // удаляет пустые теги, но есть исключения описанные в документации http://htmlpurifier.org/live/configdoc/plain.html#AutoFormat.RemoveEmpty
+	//Разрешить iframes только с доверенных источников
+	$config->set('HTML.SafeIframe', true);
+	$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //разрешить только YouTube и Vimeo
     $config->set('HTML.Doctype','HTML 5'); // преобразование некоторых тегов, например <strike>, в соответствии с HTML 5
     $purifier = new HTMLPurifier($config);
     $clean_html = $purifier->purify($str);
