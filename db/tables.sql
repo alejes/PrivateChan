@@ -37,18 +37,16 @@ CREATE TABLE IF NOT EXISTS messages (
 
 CREATE TABLE IF NOT EXISTS messages_parents (
     parent_id INTEGER,
-    child_id  INTEGER,
+    child_id  INTEGER PRIMARY KEY,
     CONSTRAINT FOREIGN KEY (parent_id) REFERENCES messages(message_id) ON DELETE CASCADE,
-    CONSTRAINT FOREIGN KEY (child_id) REFERENCES messages(message_id) ON DELETE CASCADE,
-    UNIQUE (child_id)
+    CONSTRAINT FOREIGN KEY (child_id) REFERENCES messages(message_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS threads_messages (
     thread_id  INTEGER,
-    message_id INTEGER,
+    message_id INTEGER PRIMARY KEY,
     CONSTRAINT FOREIGN KEY (thread_id) REFERENCES threads(thread_id) ON DELETE CASCADE,
-    CONSTRAINT FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE,
-    UNIQUE(message_id)
+    CONSTRAINT FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
