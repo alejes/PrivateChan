@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS boards (
   board_id INTEGER PRIMARY KEY AUTO_INCREMENT,
   board_letter CHAR(5) NOT NULL UNIQUE,
   board_name TEXT NOT NULL,
-  board_info TEXT NOT NULL
+  board_info TEXT NOT NULL,
+  hidden INT DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
