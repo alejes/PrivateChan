@@ -8,11 +8,11 @@
 - Переход к сообщениям, на которые отвечаем
 
 # Установка приложения
-- Поставить apache, php, mysql
+- Поставить Apache, PHP 5.6, MySQL
 
-- Залить файлы в DocumentRoot Apach'a
+- Залить файлы репозитория в DocumentRoot Apach'a
 - Поставить права на запись и чтение на папку
-  /libraries/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer для Apache и Php
+  libraries/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer для Apache и Php
   
 - Выполнить из папки db скрипт bootstrap.sql (генерация схемы базы данных).
   Для демонстрационного заполнения базы, можно запустить test.sql
