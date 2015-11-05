@@ -16,12 +16,10 @@ CREATE TABLE IF NOT EXISTS boards (
 CREATE TABLE IF NOT EXISTS threads (
     thread_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     thread_name CHAR(255) NOT NULL,
-    board_id INTEGER,
+    board_id INTEGER NOT NULL,
     CONSTRAINT FOREIGN KEY (board_id) REFERENCES boards(board_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
--- Нужно ли писать отдельную таблицу под реляцию "один ко многим" boards->threads?
 
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -36,17 +34,19 @@ CREATE TABLE IF NOT EXISTS messages (
 
 
 CREATE TABLE IF NOT EXISTS messages_parents (
-    parent_id INTEGER,
+    parent_id INTEGER NOT NULL,
     child_id  INTEGER PRIMARY KEY,
     CONSTRAINT FOREIGN KEY (parent_id) REFERENCES messages(message_id) ON DELETE CASCADE,
-    CONSTRAINT FOREIGN KEY (child_id) REFERENCES messages(message_id) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (child_id) REFERENCES messages(message_id) ON DELETE CASCADE,
+    INDEX (parent_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS threads_messages (
-    thread_id  INTEGER,
+    thread_id  INTEGER NOT NULL,
     message_id INTEGER PRIMARY KEY,
     CONSTRAINT FOREIGN KEY (thread_id) REFERENCES threads(thread_id) ON DELETE CASCADE,
-    CONSTRAINT FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE,
+    INDEX (thread_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
