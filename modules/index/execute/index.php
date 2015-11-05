@@ -6,29 +6,30 @@
 
 class index{
 
-    private function getBoardsData(){
+    private function getBoardsData($sort = FALSE){
         $query = mysql_query("SELECT * FROM `boards`");
 
-        $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` GROUP BY board_id");
-        $message_cnt = array();
-        while($fetch = mysql_fetch_array($message_cnt_query)){
-            $message_cnt[$fetch["board_id"]] = $fetch["message_count"];
+        $boards_temp_data = array();
+        while($fetch = mysql_fetch_array($query)){
+            $boards_temp_data[$fetch["board_id"]] = $fetch;
         }
 
+        $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` GROUP BY board_id " .(($sort) ? ' ORDER by `message_count` DESC' : ''));
         $boards_data = array();
-        while($fetch = mysql_fetch_array($query)){
-            $fetch["board_count"] = $message_cnt[$fetch["board_id"]];
-            $boards_data[] = $fetch;
+        while($fetch = mysql_fetch_array($message_cnt_query)){
+            $temp = $boards_temp_data[$fetch["board_id"]];
+            $temp["board_count"] = $fetch["message_count"];
+            if ($temp["board_hidden"] == 0)
+                $boards_data[] = $temp;
         }
+
         return $boards_data;
     }
 
     public function action_default(){
 
-        $boards_data = self::getBoardsData();
-
         $boards_info = array();
-        $boards_info_query = mysql_query("SELECT `board_letter` FROM `boards`");
+        $boards_info_query = mysql_query("SELECT `board_letter` FROM `boards` WHERE (`board_hidden` = '0')");
 
         while($fetch = mysql_fetch_array($boards_info_query)){
             $boards_info[] = $fetch;
@@ -37,8 +38,8 @@ class index{
         $board_info["name"] = "Current board name";
         $threads_data  = array();
 
-        Template::display("header", array('boards_data' => $boards_data));
-        Template::assign(array('boards_data' => $boards_data));
+        Template::display("header", array('boards_data' => self::getBoardsData()));
+        Template::assign(array('boards_data' => self::getBoardsData(TRUE)));
         Template::display("board_list");
         Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
         Template::display("footer");
