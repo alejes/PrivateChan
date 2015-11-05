@@ -1,11 +1,14 @@
 <?php
 
+/**
+    * Запуск приложения в песочнице.
+    * При возникновении ошибки или исключения запускается статическая страница.
+*/
 try{
-	require 'sandbox.php';
+    require 'sandbox.php';
 }
 catch(Exception $e){
-	//echo "Something going wrong";
-	include 'error_page.html';
+    include 'error_page.html';
 }
 
 ?>

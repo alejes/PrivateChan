@@ -1,6 +1,3 @@
-<!-- $board_info $boards_data -->
-
-
 <h1 class="text-center"> <a href="/<?php echo $board_info["board_letter"]; ?>"><?php echo $board_info["name"]; ?></a> </h1>
 
 <div id="form_post_create">
@@ -11,7 +8,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-			<form enctype="multipart/form-data" action="/<?php echo $board_info["board_letter"] ?>/<?php echo $thread_id; ?>/createPost" method="POST" class="form-horizontal">
+            <form enctype="multipart/form-data" action="/<?php echo $board_info["board_letter"] ?>/<?php echo $thread_id; ?>/createPost" method="POST" class="form-horizontal">
                 <label>Автор</label> <br> <input class="form-control" type="text" name="topic_author" value="Анон<?php echo rand(0, 99999); ?>"> <br>
                 <label>Текст</label> <br> <textarea class="form-control" name="topic_text" rows="10"> </textarea> <br>
                 Картинка <input type="file" name="image_file"> <br>

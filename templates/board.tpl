@@ -1,4 +1,3 @@
-
 <h1 class="text-center"> <?php echo $board_info["name"] ?> </h1>
 
 <h3 id="create_thread" class="text-center">

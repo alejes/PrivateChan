@@ -1,5 +1,9 @@
 <?php
 
+/**
+    * Простенький роутер запросов
+*/
+
 class Router {
     
     public static $segment1;
@@ -15,7 +19,7 @@ class Router {
     
     private static $parse = array('segment1' => '', 'segment2' => '', 'segment3'=>'');
     /**
-    * Конструктор
+    * Парсинг строки запроса
     */
     
     public static function parse_query(){
@@ -44,9 +48,13 @@ class Router {
         }
     }
     
+    /**
+    * Определение запрашиваемого модуля и сегмента
+    */
+    
     public static function route(){
         self::parse_query();
-        //var_dump(self::$parse);
+        
         if (self::_check_segments()){
             self::$segment1 = self::$parse['segment1'];
             self::$segment2 = self::$parse['segment2'];
