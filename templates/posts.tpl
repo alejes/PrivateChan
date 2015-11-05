@@ -65,7 +65,7 @@
     <div class="ids">
         <?php if (is_array($posts_data[$i]["ids"])): ?>
             <?php for ($j = 0; $j < count($posts_data[$i]["ids"]); $j++): ?>
-                [<a href="#<?php echo $posts_data[$i]["ids"][$i] ?>"><?php echo $posts_data[$i]["ids"][$j] ?></a>]
+                [<a href="#<?php echo $posts_data[$i]["ids"][$j] ?>"><?php echo $posts_data[$i]["ids"][$j] ?></a>]
             <?php endfor; ?>
         <?php endif; ?>
     </div>
