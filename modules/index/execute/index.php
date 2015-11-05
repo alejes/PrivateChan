@@ -1,22 +1,28 @@
 <?php
 
 /**
-    * Модуль имиджборды
-*/
+ * Модуль имиджборды
+ */
 
 class index{
 
     private function getBoardsData(){
         $query = mysql_query("SELECT * FROM `boards`");
+
+        $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` GROUP BY board_id");
+        $message_cnt = array();
+        while($fetch = mysql_fetch_array($message_cnt_query)){
+            $message_cnt[$fetch["board_id"]] = $fetch["message_count"];
+        }
+
         $boards_data = array();
         while($fetch = mysql_fetch_array($query)){
-            $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` WHERE (`board_id` = '".$fetch["board_id"]."')");
-            $fetch["board_count"] = mysql_fetch_assoc($message_cnt_query)["message_count"];
+            $fetch["board_count"] = $message_cnt[$fetch["board_id"]];
             $boards_data[] = $fetch;
         }
         return $boards_data;
     }
-    
+
     public function action_default(){
 
         $boards_data = self::getBoardsData();
@@ -38,7 +44,7 @@ class index{
         Template::display("footer");
 
     }
-    
+
     public function action_showBoard($letter = ""){
         if (empty($letter)){
             if (defined('ROUTE_CONTROLLER_URL')){
@@ -121,7 +127,7 @@ class index{
 
         return $url . $filename;
     }
-    
+
     public function action_createThread(){
         $query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".escape(ROUTE_CONTROLLER_URL)."')");
         $board = mysql_fetch_array($query);
@@ -153,7 +159,7 @@ class index{
         $query = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."')");
 
         $query = mysql_query("SELECT @thread_id, @message_id");
-        
+
         $add = mysql_fetch_array($query);
 
         redirect("/".$board['board_letter']."/".$add["@thread_id"]);
@@ -252,7 +258,7 @@ class index{
         }
 
         $query = mysql_query("CALL CreateMessage(@message_id, '".$answer_token."', '".$thread_id."', '".((empty($post_author)) ? 'Аноним' : $post_author)."', '".((empty($post_message)) ? 'Я не умею писать сообщения' : $post_message)."', '".$image_url."', 'NULL', '".$video_url."');");
-        
+
         redirect("/".$board_letter."/".$thread_id);
     }
 }
