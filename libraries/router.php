@@ -1,7 +1,7 @@
 <?php
 
 /**
-    * Простенький роутер запросов
+    * РџСЂРѕСЃС‚РµРЅСЊРєРёР№ СЂРѕСѓС‚РµСЂ Р·Р°РїСЂРѕСЃРѕРІ
 */
 
 class Router {
@@ -19,7 +19,7 @@ class Router {
     
     private static $parse = array('segment1' => '', 'segment2' => '', 'segment3'=>'');
     /**
-    * Парсинг строки запроса
+    * РџР°СЂСЃРёРЅРі СЃС‚СЂРѕРєРё Р·Р°РїСЂРѕСЃР°
     */
     
     public static function parse_query(){
@@ -49,7 +49,7 @@ class Router {
     }
     
     /**
-    * Определение запрашиваемого модуля и сегмента
+    * РћРїСЂРµРґРµР»РµРЅРёРµ Р·Р°РїСЂР°С€РёРІР°РµРјРѕРіРѕ РјРѕРґСѓР»СЏ Рё СЃРµРіРјРµРЅС‚Р°
     */
     
     public static function route(){
@@ -81,7 +81,7 @@ class Router {
                 }
                 else self::$controller_exists = FALSE;
             }
-            # Если указан только 1 сегмент
+            # Р•СЃР»Рё СѓРєР°Р·Р°РЅ С‚РѕР»СЊРєРѕ 1 СЃРµРіРјРµРЅС‚
             elseif(!empty(self::$segment1)) {
                 if(file_exists(ROOT . 'modules/'. self::$segment1 .'/execute/'. self::$segment1 .'.php')) {
                     self::$controller_path = 'modules/'. self::$segment1 .'/execute/'. self::$segment1 .'.php';
@@ -129,7 +129,7 @@ class Router {
             }else    throw new Exception('00404');//;
     }
     /**
-    * Проверка правильности сегментов
+    * РџСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё СЃРµРіРјРµРЅС‚РѕРІ
     */
     protected static function _check_segments() {
         $check_segments = true;

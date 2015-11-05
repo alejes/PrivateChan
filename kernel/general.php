@@ -1,7 +1,7 @@
 <?php
 
 /**
-    * Часто используемые функции
+    * Р§Р°СЃС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ С„СѓРЅРєС†РёРё
 */
 
 include ROOT . 'libraries/htmlpurifier/library/HTMLPurifier.includes.php';
@@ -12,9 +12,9 @@ function full_escape($str){
 
 function escape($str){
     $config = HTMLPurifier_Config::createDefault();
-    $config->set('Attr.AllowedClasses',array('header', 'math-tex', 'border')); // или Attr.ForbiddenClasses имеются ввиду CSS классы
-    $config->set('AutoFormat.RemoveEmpty',true); // удаляет пустые теги, есть исключения*
-    $config->set('HTML.Doctype','HTML 4.01 Strict'); // обратите внимание как заменился тег <strike>
+    $config->set('Attr.AllowedClasses',array('header', 'math-tex', 'border')); // РёР»Рё Attr.ForbiddenClasses РёРјРµСЋС‚СЃСЏ РІРІРёРґСѓ CSS РєР»Р°СЃСЃС‹
+    $config->set('AutoFormat.RemoveEmpty',true); // СѓРґР°Р»СЏРµС‚ РїСѓСЃС‚С‹Рµ С‚РµРіРё, РµСЃС‚СЊ РёСЃРєР»СЋС‡РµРЅРёСЏ*
+    $config->set('HTML.Doctype','HTML 4.01 Strict'); // РѕР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ РєР°Рє Р·Р°РјРµРЅРёР»СЃСЏ С‚РµРі <strike>
     $purifier = new HTMLPurifier($config);
     $clean_html = $purifier->purify($str);
     return mysql_real_escape_string($clean_html);
