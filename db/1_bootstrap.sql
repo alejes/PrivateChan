@@ -1,4 +1,4 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+﻿SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 -- USE auch_db;
@@ -122,6 +122,4 @@ SELECT
 FROM boards b LEFT JOIN threads t ON t.board_id = b.board_id 
    LEFT JOIN threads_message_counts tmc ON tmc.thread_id = t.thread_id
 GROUP BY board_id;
-    
-source procedures.sql;
-
+ 
