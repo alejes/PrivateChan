@@ -9,6 +9,7 @@
 
 # Установка приложения
 - Поставить apache, php, mysql
+
 - Залить файлы в DocumentRoot Apach'a
 - Поставить права на запись и чтение на папку
   /libraries/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer для Apache и Php
