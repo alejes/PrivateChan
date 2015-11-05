@@ -7,19 +7,22 @@
 class index{
 
     private function getBoardsData($sort = FALSE){
-        $query = mysql_query("SELECT * FROM `boards` WHERE (`board_hidden` = '0')");
+        $query = mysql_query("SELECT * FROM `boards`");
 
-        $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` GROUP BY board_id " .(($sort) ? ' ORDER by `message_count`' : ''));
-        $message_cnt = array();
-        while($fetch = mysql_fetch_array($message_cnt_query)){
-            $message_cnt[$fetch["board_id"]] = $fetch["message_count"];
-        }
-
-        $boards_data = array();
+        $boards_temp_data = array();
         while($fetch = mysql_fetch_array($query)){
-            $fetch["board_count"] = $message_cnt[$fetch["board_id"]];
-            $boards_data[] = $fetch;
+            $boards_temp_data[$fetch["board_id"]] = $fetch;
         }
+
+        $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` GROUP BY board_id " .(($sort) ? ' ORDER by `message_count` DESC' : ''));
+        $boards_data = array();
+        while($fetch = mysql_fetch_array($message_cnt_query)){
+            $temp = $boards_temp_data[$fetch["board_id"]];
+            $temp["board_count"] = $fetch["message_count"];
+            if ($temp["board_hidden"] == 0)
+                $boards_data[] = $temp;
+        }
+
         return $boards_data;
     }
 
@@ -267,3 +270,4 @@ class index{
 }
 
 ?>
+
