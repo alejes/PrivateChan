@@ -1,17 +1,22 @@
 <?php
 
+/**
+    * Модуль имиджборды
+*/
+
 class index{
 
     private function getBoardsData(){
-        $q = mysql_query("SELECT * FROM `boards`");
+        $query = mysql_query("SELECT * FROM `boards`");
         $boards_data = array();
-        while($fetch = mysql_fetch_array($q)){
+        while($fetch = mysql_fetch_array($query)){
             $message_cnt_query = mysql_query("SELECT * FROM `boards_message_counts` WHERE board_id = '".$fetch["board_id"]."'");
             $fetch["board_count"] = mysql_fetch_assoc($message_cnt_query)["message_count"];
             $boards_data[] = $fetch;
         }
         return $boards_data;
     }
+    
     public function action_default(){
 
         $boards_data = self::getBoardsData();
@@ -26,7 +31,6 @@ class index{
         $board_info["name"] = "Current board name";
         $threads_data  = array();
 
-
         Template::display("header", array('boards_data' => $boards_data));
         Template::assign(array('boards_data' => $boards_data));
         Template::display("board_list");
@@ -34,6 +38,7 @@ class index{
         Template::display("footer");
 
     }
+    
     public function action_showBoard($letter = ""){
         if (empty($letter)){
             if (defined('ROUTE_CONTROLLER_URL')){
@@ -76,7 +81,6 @@ class index{
 
     private function upload_file($file, $realname){
 
-
         $hash = base64_encode(sha1($file) ^ md5($file));
         $allow_extension = array('webm', 'jpeg', 'jpg', 'bmp', 'gif', 'mp4', 'png');
         $ext = strtolower(end(explode('.', $realname)));
@@ -116,9 +120,10 @@ class index{
 
         return $url . $filename;
     }
+    
     public function action_createThread(){
-        $q = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".escape(ROUTE_CONTROLLER_URL)."')");
-        $board = mysql_fetch_array($q);
+        $query = mysql_query("SELECT * FROM `boards` WHERE (`board_letter` = '".escape(ROUTE_CONTROLLER_URL)."')");
+        $board = mysql_fetch_array($query);
         if (!isset($board['board_id'])){
             throw new Exception("00506");
             exit();
@@ -128,7 +133,7 @@ class index{
         $topic_message = escape($_POST["topic_text"]);
         $topic_name = full_escape($_POST["topic_name"]);
 
-        $add = mysql_fetch_array($q);
+        $add = mysql_fetch_array($query);
 
         $image_url = "";
         if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
@@ -143,9 +148,11 @@ class index{
             $video_url = self::upload_file($file, $_FILES['video_file']["name"]);
         }
 
-        $q = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."');");
+        $query = mysql_query("CALL CreateThread (@thread_id, @message_id, '".((empty($topic_name)) ? 'КОНИ, НОЖИ, ДЕТИ, АНИМЕ' : $topic_name)."', '".intval($board['board_id'])."', '".((empty($topic_author)) ? 'Аноним' : $topic_author)."', '".((empty($topic_message)) ? 'Я не умею писать сообщения' : $topic_message)."', '".$image_url."', 'NULL', '".$video_url."')");
 
-        $q = mysql_query("SELECT @thread_id, @message_id;");
+        $query = mysql_query("SELECT @thread_id, @message_id");
+        
+        $add = mysql_fetch_array($query);
 
         redirect("/".$board['board_letter']."/".$add["@thread_id"]);
 
@@ -162,7 +169,7 @@ class index{
         }
         if (empty($thread_id)){
             if (defined('ROUTE_SEGMENT')){
-                $thread_id = ROUTE_SEGMENT;
+                $thread_id = intval(ROUTE_SEGMENT);
             }
             else throw new Exception('00404');
         }
@@ -173,8 +180,6 @@ class index{
         if (!isset($board_info['board_letter'])){
             throw new Exception('00906');
         }
-
-
 
         $board_info["name"] = $board_info["board_name"];
 
@@ -222,15 +227,14 @@ class index{
         }
         if (empty($thread_id)){
             if (defined('ROUTE_SEGMENT')){
-                $thread_id = ROUTE_SEGMENT;
+                $thread_id = intval(ROUTE_SEGMENT);
             }
             else throw new Exception('00404');
         }
 
-
-        $post_author = escape($_POST["topic_author"]);
+        $post_author = full_escape($_POST["topic_author"]);
         $post_message = escape($_POST["topic_text"]);
-        $answer_token = escape($_POST["parrent_token"]);
+        $answer_token = intval($_POST["parrent_token"]);
 
         $image_url = "";
         if (isset($_FILES['image_file']["tmp_name"]) && !empty($_FILES['image_file']["tmp_name"])){
@@ -244,15 +248,10 @@ class index{
             $video_url = self::upload_file($file, $_FILES['video_file']["name"]);
         }
 
-        $q = mysql_query("CALL CreateMessage(@message_id, '".$answer_token."', '".$thread_id."', '".((empty($post_author)) ? 'Аноним' : $post_author)."', '".((empty($post_message)) ? 'Я не умею писать сообщения' : $post_message)."', '".$image_url."', 'NULL', '".$video_url."');");
-        $q = mysql_query("SELECT @message_id;");
-
-
-        $add = mysql_fetch_array($q);
+        $query = mysql_query("CALL CreateMessage(@message_id, '".$answer_token."', '".$thread_id."', '".((empty($post_author)) ? 'Аноним' : $post_author)."', '".((empty($post_message)) ? 'Я не умею писать сообщения' : $post_message)."', '".$image_url."', 'NULL', '".$video_url."');");
+        
         redirect("/".$board_letter."/".$thread_id);
     }
 }
 
-
-
-
+?>

@@ -1,5 +1,9 @@
 <?php
 
+/**
+    * Часто используемые функции
+*/
+
 include ROOT . 'libraries/htmlpurifier/library/HTMLPurifier.includes.php';
 
 function full_escape($str){
