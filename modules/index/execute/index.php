@@ -31,7 +31,6 @@ class index{
         Template::assign(array('boards_data' => $boards_data));
         Template::display("board_list");
         Template::assign(array('board_info' => $board_info, 'threads_data'=> $threads_data));
-        //Template::display("board");
         Template::display("footer");
 
     }
