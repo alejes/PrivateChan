@@ -2,10 +2,10 @@
 
 include ROOT . 'libraries/htmlpurifier/library/HTMLPurifier.includes.php';
 
-
 function full_escape($str){
     return mysql_real_escape_string(htmlspecialchars($str, ENT_QUOTES));
 }
+
 function escape($str){
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Attr.AllowedClasses',array('header', 'math-tex', 'border')); // или Attr.ForbiddenClasses имеются ввиду CSS классы
@@ -15,7 +15,9 @@ function escape($str){
     $clean_html = $purifier->purify($str);
     return mysql_real_escape_string($clean_html);
 }
+
 function redirect($url){
     header("Location: ".$url);
 }
+
 ?>

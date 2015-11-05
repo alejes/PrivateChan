@@ -1,4 +1,3 @@
-
 <h1 class="text-center">AUChan</h1>
 <h3 class="text-center">Добро пожаловать</h3>
 

@@ -1,4 +1,3 @@
-
 <div class="super_header">
     <a class="item" href="/"> Главная </a>
     <?php for ($i = 0; $i < count($boards_data); $i++): ?>
